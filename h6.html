@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Looping and branching | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="h5.html">Templates</a></p>
+          <p class="next">Next&nbsp <a href="j0.html">JS documentation</a></p>
+        </div>
+        <div class="subtitle">
+          <p>HTML documentation</p>
+          <div id="jump-to-article">
+            <a href="h0.html">1. Getting started</a>
+            <a href="h1.html">2. Tags</a>
+            <a href="h2.html">3. Variables</a>
+            <a href="h3.html">4. Operators</a>
+            <a href="h4.html">5. Functions</a>
+            <a href="h5.html">6. Templates</a>
+            <a href="h6.html" class="local">7. Looping and branching</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Looping and branching</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>The template script language has <code>for</code> loops, <code>if-else</code> directives, and <code>switch</code> directives.</p>
+        </section>
+        <section>
+          <h2>For loop</h2>
+          <p>An example for loop looks like follows:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">ul</span></span><br><span class="cl"><span class="indent"></span><span class="ck">for</span> item <span class="ck">in</span> <span class="cm">$items</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">li</span> <span class="cm">$item</span></span><br></div></code>
+          <br>
+          <p>If you also need the index (0-based!), you can specify two names, separated by a comma, before the <code>in</code> keyword:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">ul</span></span><br><span class="cl"><span class="indent"></span><span class="ck">for</span> i, item <span class="ck">in</span> <span class="cm">$items</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">li</span> <span class="cm">$str</span>(<span class="cm">$i</span>) + ". " + <span class="cm">$item</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>If else</h2>
+          <p><code>if</code> and <code>elseif</code> directives take boolean condition as an argument. <code>elseif</code> and <code>else</code> directives must be preceded by an <code>if</code> directive on the same indentation level:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">body</span></span><br><span class="cl"><span class="indent"></span><span class="ck">if</span> <span class="cm">$title</span> != <span class="cv">null</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">h1</span> <span class="cm">$title</span></span><br><span class="cl"><span class="indent"></span><span class="ck">else</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">h1</span> <span class="cm">$defaultTitle</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>Switch</h2>
+          <p>A <code>switch</code> is good alternative to an <code>if-else</code> directive if there are many similar cases:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">switch</span> <span class="cm">$tag</span></span><br><span class="cl"><span class="indent"></span><span class="ck">case</span> <span class="cv">"div"</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">div</span></span><br><span class="cl"><span class="indent"></span><span class="ck">case</span> <span class="cv">"form"</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">form</span></span><br><span class="cl"><span class="indent"></span><span class="ck">case</span> <span class="cv">"section"</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">section</span></span><br><span class="cl"><span class="indent"></span><span class="ck">default</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cm">$error</span>(<span class="cv">"tag type "</span>, <span class="cm">$tag</span>, <span class="cv">" not handled"</span>)</span><br></div></code>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="h5.html">Templates</a></p>
+        <p class="next">Next&nbsp <a href="j0.html">JS documentation</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

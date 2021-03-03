@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Client-side search | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <style>@font-face{font-family:FreeSerifMath;src:url(FreeSerifMath.woff2)}
+div#example-search-results{
+  align-items:flex-start;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding-left:1.5rem;
+}
+div#example-search-results a{
+  height:2rem;
+  line-height:2rem;
+}
+    </style>
+    <script type="text/javascript" src="bundle.js"></script>
+
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="g1.html">Package management</a></p>
+          <p class="next">Next&nbsp <a href="c0.html">CSS documentation</a></p>
+        </div>
+        <div class="subtitle">
+          <p>General documentation</p>
+          <div id="jump-to-article">
+            <a href="g0.html">1. Overview of tools</a>
+            <a href="g1.html">2. Package management</a>
+            <a href="g2.html" class="local">3. Client-side search</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Client-side search</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p><em>wtsuite</em> includes a special search indexer, and javascript search API. This search functionality is optimized for fast client-side search of small websites (&lt; 1000 pages). The API has partial and fuzzy search capabilities.</p>
+          <br>
+          <p>The std library provided page scoring isn't yet finished, and contributions are welcome.</p>
+        </section>
+        <section>
+          <h2>Example</h2>
+          <p>Type some search text into the input field below to search in the javascript documentation of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">MDN</a> (about 900 pages):</p>
+          <input type="text" id="example-search-input">
+          <p id="example-search-message"></p>
+          <div id="example-search-results">
+          </div>
+          <br>
+          <p>The index used in this example is 5.4MB uncompressed, and 1.1MB gzipped.</p>
+        </section>
+        <section>
+          <h2>Indexing local files</h2>
+          <p>The indexing command is called <code>wt-search-index</code>. Looks for all html files (by extension!) in a given directory. The directory is assumed to represent the root of the website to be indexed.</p>
+          <code class="cblock"><div><span class="cl">> wt-search-index ./www -c ./search-config.json -o ./www/search-index.json</span><br></div></code>
+          <br>
+          <p>The <code>wt-search-index</code> command requires a config file. The config file tells the <code>wt-search-index</code> which tags to index and which words to ignore.</p>
+          <br>
+          <p>The output is javascript object, with information about each indexed page, and a special hierarchial search index enabling instant fuzzy search.</p>
+          <br>
+          <p>The output file will be roughly 2KB per page, so websites with more than about 1000 pages it is recommended to use server side search techniques.</p>
+          <h3>Well-formedness</h3>
+          <p><code>wt-search-index</code> uses its own xml parser. This xml parser is more strict than most browsers, and thus some pages parseable by a browser might be ignored by the indexer. (The indexer is mostly intended for the well-formed output generated by <em>wtsuite</em>'s transpilers.)</p>
+        </section>
+        <section>
+          <h2>Search config file</h2>
+          <code class="cblock"><div><span class="cl">{</span><br><span class="cl"><span class="indent"></span>"title-query": "h1",</span><br><span class="cl"><span class="indent"></span>"content-query": "main",</span><br><span class="cl"><span class="indent"></span>"description": false,</span><br><span class="cl"><span class="indent"></span>"ignore": ["a", "all", "always", "an", "and", "any", "are", "at", "be", "but", "by", "can", "does", "for", "got", "has", "have", "if", "in", "into", "is", "it", "its", "like", "must", "no", "not", "of", "or", "our", "per", "that", "the", "their", "them", "there", "this", "to", "us", "use", "used", "uses", "want", "what", "where", "which", "will", "with", "would"]</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>Valid css selectors can be used for the <code>title-query</code> and <code>content-query</code>.</p>
+          <br>
+          <p>The meta description can optionally included as part of the content.</p>
+        </section>
+        <section>
+          <h2>Indexing a live website</h2>
+          <p>A live website must first be downloaded before it can be indexed. The <code>wt-crawl</code> command accomplishes this.</p>
+          <br>
+          <p><code>wt-crawl</code> looks for link tags with a (clean) href attribute. All found files are downloaded into a directory recursively. This directory again represents the root of the website (or at least the part you want to index).</p>
+          <code class="cblock"><div><span class="cl">> wt-crawl https://computeportal.github.io/wtsuite-doc -o ./wtsuite-doc_www -j 8</span><br></div></code>
+          <br>
+          <p>The <code>-j</code> option lets you parallelize the download and parsing process.</p>
+          <br>
+          <p>Note that <code>wt-crawl</code> is much slower than <code>wt-search-index</code> due to download latencies.</p>
+        </section>
+        <section>
+          <h2>Search API</h2>
+          <p>Import the std library module:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> search <span class="ck">from</span> <span class="cv">std/search</span>;</span><br></div></code>
+          <br>
+          <p>Make sure the std library is defined in your <code>package.json</code> file.</p>
+          <code class="cblock"><div><span class="cl">{</span><br><span class="cl"><span class="indent"></span>"dependencies": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>"std": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>"minVersion": "0.0.0",</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>"maxVersion": "2.0.0",</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>"url": "github.com/computeportal/wtlib"</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span>...</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>Create a new <code>SearchIndex</code> object, giving the constructer the url from you will be hosting the <code>search-index.json</code> file:</p>
+          <code class="cblock"><div><span class="cl">searchIndex := <span class="ck">new</span> search.SearchIndex("/search-index.json");</span><br></div></code>
+          <br>
+          <p>Updating search results as you type is easiest from within an <code>async</code> function:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">private async</span> updateResults() {</span><br><span class="cl"><span class="indent"></span>query := <span class="ck">this</span>._input.value;</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span>keys := search.sanitizeQuery(query);</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span>pages := <span class="ck">await</span> search.searchPages(<span class="ck">this</span>._searchIndex, keys, <span class="cv">false</span>);</span><br><span class="cl"><span class="indent"></span>...</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>Use the <code>sanitizeQuery</code> function to turn a query string into an array of (clean) keywords.</p>
+          <br>
+          <p>The resulting <code>pages</code> are sorted according to an internal <code>PageScore</code>, and the first page in the array is deemed the most relevant.</p>
+          <br>
+          <p>Each page object in the array has a <code>title</code>, <code>url</code> (relative), and <code>content</code> property. The <code>content</code> property is an array of strings that you can use to display a short description of the relevant page.</p>
+          <br>
+          <p>Have a look at <a href="documentation/general/SearchExample.wts">this file</a> to see how we did the processing of the search results in the above example.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="g1.html">Package management</a></p>
+        <p class="next">Next&nbsp <a href="c0.html">CSS documentation</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+    <script>
+function onload(){
+dPzGVv();}
+window.addEventListener("load",onload,false);
+    </script>
+  </body>
+</html>

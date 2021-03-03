@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Macros | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j5.html">Type guards</a></p>
+          <p class="next">Next&nbsp <a href="j7.html">RPC</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html" class="local">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Macros</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>The <em>wtsuite</em> script compiler provides some macros through function-like calls.</p>
+        </section>
+        <section>
+          <h2>cast</h2>
+          <p>The <code>cast</code> macro allows you to cast the type of an expression into any other type:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> x <span class="ct">Array</span>&lt;<span class="ct">String</span>&gt; = [<span class="cv">"a"</span>];</span><br><span class="cl">x = <span class="ck">cast</span>([<span class="cv">10.0</span>], <span class="ct">Array</span>&lt;<span class="ct">String</span>&gt;); <span class="cc">// ok during compilation, maybe nok during runtime!</span></span><br></div></code>
+          <br>
+          <p>This can be useful to circumvent the type checking where it becomes a nuisance.</p>
+          <br>
+          <p>The second argument of <code>cast</code> must be a type. It can't be a variable or expression resolving to a type.</p>
+        </section>
+        <section>
+          <h2>Object.isUndefined</h2>
+          <p>The <code>undefined</code> literal value doesn't exist in <em>wtsuite</em>'s typed javascript, but you can check if an expression is <code>undefined</code> with this macro:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> obj = {};</span><br><span class="cl">console.log(<span class="ct">Object</span>.isUndefined(obj[<span class="cv">"key"</span>])); <span class="cc">// true</span></span><br></div></code>
+          <br>
+          <p>It tries to return literal booleans where possible, which in turn allows avoiding evaluation of if-else branches.</p>
+        </section>
+        <section>
+          <h2>Object.fromInstance</h2>
+          <p><code>Object.fromInstance()</code> can be used to serialize an instance in combination with <code>JSON.stringify()</code>:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> obj <span class="ct">Object</span> = <span class="ct">Object</span>.fromInstance(<span class="ck">new</span> Vec2(<span class="cv">0.0</span>,  <span class="cv">1.0</span>)));</span><br><span class="cl"><span class="ck">var</span> message <span class="ct">String</span> = JSON.stringify(obj); <span class="cc">// can be sent to a server, which calls the corresponding JSON.parse(Object.toInstance(message, Vec2))</span></span><br></div></code>
+          <br>
+          <p>Internally the created object contains additional type information as plain-text values, so the instance can be reconstructed elsewhere.</p>
+          <br>
+          <p>Note that the class property names must still be the same when reconstructing the instance!</p>
+        </section>
+        <section>
+          <h2>Object.toInstance</h2>
+          <p><code>Object.toInstance()</code> can be used to deserialize a string in combination with <code>JSON.parse()</code>:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> obj <span class="ct">Object</span> = JSON.parse(message); <span class="cc">// eg. received from client</span></span><br><span class="cl"><span class="ck">var</span> x Vec2 = <span class="ct">Object</span>.toInstance(obj, Vec2);</span><br></div></code>
+          <br>
+          <p>The second argument of <code>Object.toInstance</code> must be a type. It can't be a variable or expression resolving to a type.</p>
+        </section>
+        <section>
+          <h2>Blob.fromInstance</h2>
+          <p><code>Blob.fromInstance()</code> is the binary equivalent of <code>Object.fromInstance()</code>.</p>
+          <br>
+          <p>It returns a blob, that essentially wraps a <code>Uint8Array</code>. This binary structure has a JSON header, and the body is a concatentation of all typed arrays found in the original instance.</p>
+          <br>
+          <p>This is more efficient than <code>Object.fromInstance()</code> if the instance contains a large amount of data in typed arrays, because it doesn't require base64 encoding/decoding, and doesn't require compression/decompression.</p>
+        </section>
+        <section>
+          <h2>Blob.toInstance</h2>
+          <p><code>Blob.toInstance()</code> is the binary equivalent of <code>Object.toInstance()</code>, and the deserializing counterpart of <code>Blob.fromInstance()</code>.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j5.html">Type guards</a></p>
+        <p class="next">Next&nbsp <a href="j7.html">RPC</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

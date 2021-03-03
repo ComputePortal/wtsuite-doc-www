@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Overview of tools | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="next">Next&nbsp <a href="g1.html">Package management</a></p>
+        </div>
+        <div class="subtitle">
+          <p>General documentation</p>
+          <div id="jump-to-article">
+            <a href="g0.html" class="local">1. Overview of tools</a>
+            <a href="g1.html">2. Package management</a>
+            <a href="g2.html">3. Client-side search</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Overview of tools</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>This page summarizes the command-line transpiler tools included in <em>wtsuite</em>.</p>
+        </section>
+        <section>
+          <h2>wt-site</h2>
+          <p><code>wt-site</code> builds an entire static website using a json config file as input.</p>
+          <br>
+          <p>Usage:</p>
+          <code class="cblock"><div><span class="cl">> wt-site site.json . --auto-link</span><br></div></code>
+          <br>
+          <p>An example config file can be found <a href="site.json">here</a>.</p>
+        </section>
+        <section>
+          <h2>wt-search-index</h2>
+          <p><code>wt-search-index</code> indexes pages mentioned in the site config file. Additional settings can be used to refine the indexation. The index is stored in a json file, which can be used by a builtin javascript class to provide client-side search.</p>
+          <br>
+          <p>Usage:</p>
+          <code class="cblock"><div><span class="cl">> wt-search-index site.json search-index.json --auto-link</span><br></div></code>
+        </section>
+        <section>
+          <h2>wt-template</h2>
+          <p><code>wt-template</code> transpiles a single template file, and produces a single html file, with all styles and scripts included in the html file. This is the easiest way to get started with the template engine.</p>
+          <br>
+          <p>Usage:</p>
+          <code class="cblock"><div><span class="cl">> wt-template index.wtt -o index.html --auto-link</span><br></div></code>
+          <br>
+          <p>Once you start creating websites with many pages, then consider using the <code>wt-site</code> tool instead.</p>
+        </section>
+        <section>
+          <h2>wt-template-syntax-tree</h2>
+          <p><code>wt-template-syntax-tree</code> dumps the syntax tree of template files. This is used by <em>wtsuite</em> developers to debug their modifications of the parsers.</p>
+        </section>
+        <section>
+          <h2>wt-script</h2>
+          <p><code>wt-script</code> transpiles and bundles typed javascript files. It needs an entry point to get started (other files are found using import statements).</p>
+          <br>
+          <p>Usage:</p>
+          <code class="cblock"><div><span class="cl">> wt-script main.wts -o main.js --target nodejs --executable</span><br></div></code>
+        </section>
+        <section>
+          <h2>wt-script-grapher</h2>
+          <p><code>wt-script-grapher</code> creates <a href="https://graphviz.org">graphviz</a> dot files representing the structure of your <em>wtsuite</em> script programs. Useful when analyzing larger projects.</p>
+        </section>
+        <section>
+          <h2>wt-script-refactor</h2>
+          <p><code>wt-script-refactor</code> renames script classes and packages. Related file names are also renamed. This is safer than using search-and-replace. Comments are left untouched.</p>
+        </section>
+        <section>
+          <h2>wt-script-syntax-tree</h2>
+          <p><code>wt-script-syntax-tree</code> dumps the syntax tree of script files. This is used by <em>wtsuite</em> developers to debug their modifications of the parsers.</p>
+        </section>
+        <section>
+          <h2>wt-svg-minify</h2>
+          <p><code>wt-svg-minify</code> is used to minify svg files created by inkscape.</p>
+        </section>
+        <section>
+          <h2>wt-glsl</h2>
+          <p><code>wt-glsl</code> transpiles and bundles shader files. It needs an entry point to get started (other files are found using import statements).</p>
+          <br>
+          <p>Usage:</p>
+          <code class="cblock"><div><span class="cl">> wt-glsl main.glsl -o main.shader --target fragment</span><br></div></code>
+        </section>
+        <section>
+          <h2>wt-glsl-syntax-tree</h2>
+          <p><code>wt-glsl-syntax-tree</code> dumps the syntax tree of shader files. This is used by <em>wtsuite</em> developers to debug their modifications of the parsers.</p>
+        </section>
+        <section>
+          <h2>wt-style</h2>
+          <p><code>wt-style</code> transpiles a template script file into a css file. The input file must have an exported style variable called <code>main</code>.</p>
+          <p>Usage:</p>
+          <code class="cblock"><div><span class="cl">> wt-style ./style/main.wtt -o ./style.css</span><br></div></code>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="next">Next&nbsp <a href="g1.html">Package management</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

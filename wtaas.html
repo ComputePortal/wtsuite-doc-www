@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Web transpiler as a Service | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <style>@font-face{font-family:FreeSerifMath;src:url(FreeSerifMath.woff2)}
+#login{
+  display:none;
+}
+#login[show]{
+  display:block;
+}
+#app{
+  display:none;
+}
+#app[show]{
+  display:block;
+}
+#libs-container p.url{
+  color:black;
+}
+p.webhook{
+  color:red;
+}
+    </style>
+    <script type="text/javascript" src="bundle.js"></script>
+
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+        </div>
+        <h1>Web transpiler as a Service</h1>
+      </header>
+      <article>
+        <section id="introduction">
+Use wtsuite in the cloud to build static websites as part of your CD flow. Rebuilds are triggered by webhooks from your own repositories, as well as webhooks from upstream dependencies.
+        </section>
+        <section>
+          <form id="login">
+            <a id="github-login">Log in with Github</a>
+          </form>
+          <div id="app">
+            <div id="info">
+              <p id="host-info"></p>
+              <p id="name-info"></p>
+              <p id="last-build-info"></p>
+              <p id="ssh-key"></p>
+              <input id="test-webhook-input">
+              <button id="test-webhook-button">
+              </button>
+            </div>
+            <div id="libraries">
+              <input id="library-url">
+              <button id="add-library">
+Add library
+              </button>
+              <div id="libs-container">
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+    <script>
+function onload(){
+cFNzSU();}
+window.addEventListener("load",onload,false);
+    </script>
+  </body>
+</html>

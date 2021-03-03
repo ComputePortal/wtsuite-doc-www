@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Packages | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+        </div>
+        <h1>Packages</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>More information about importing and exporting packages can be found <a href="g1.html">here</a>.</p>
+        </section>
+        <section>
+          <h2 id="std">std</h2>
+          <p><code>github.com/computeportal/wtlib</code></p>
+          <br>
+          <p>This package is still very experimental. Ideas and contributions are welcome.</p>
+          <br>
+          <table class="package">
+            <thead>
+              <tr><th>Module</th><th>Technologies</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>colors</td><td>glsl</td><td>Color palettes</td></tr>
+              <tr><td>easing</td><td>js</td><td>Common easing functions</td></tr>
+              <tr><td><a href="std0.html">icons</a></td><td>html, css</td><td>Material design icons</td></tr>
+              <tr><td>layout</td><td>css</td><td>Flexbox and grid utilties</td></tr>
+              <tr><td>linalg</td><td>js</td><td>Common vector and tensor types, and many other algebra related primitives</td></tr>
+              <tr><td>ux</td><td>html, js</td><td>Widgets (carousel, etc.)</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Code samples | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j1.html">Differences with vanilla</a></p>
+          <p class="next">Next&nbsp <a href="j3.html">Type parameters</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html" class="local">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Code samples</h1>
+      </header>
+      <article>
+        <section id="introduction">
+        </section>
+        <section>
+          <h2>Variables</h2>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> a <span class="ct">Array</span><<span class="ct">Number</span>> = [<span class="cv">0.0</span>, <span class="cv">1</span>, <span class="cv">2e0</span>, <span class="cv">3.0e0</span>];</span><br><br><span class="cl"><span class="cc">// shorthand for let, type is inferred as String</span></span><br><span class="cl">b := <span class="cv">"a literal string"</span>;</span><br></div></code>
+        </section>
+        <section>
+          <h2>Classes</h2>
+          <code class="cblock"><div><span class="cl"><span class="ck">export class</span> Vec2 {</span><br><span class="cl"><span class="indent"></span>_x <span class="ct">Number</span>; <span class="cc">// class fields are private by default</span></span><br><span class="cl"><span class="indent"></span>_y <span class="ct">Number</span>;</span><br><br><span class="cl"><span class="indent"></span><span class="ck">constructor</span>(x <span class="ct">Number</span>, y <span class="ct">Number</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>._x = x;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>._y = y;</span><br><span class="cl"><span class="indent"></span>}</span><br><br><span class="cl"><span class="indent"></span><span class="ck">get</span> x() <span class="ct">Number</span> { </span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return this</span>._x;</span><br><span class="cl"><span class="indent"></span>}</span><br><br><span class="cl"><span class="indent"></span><span class="ck">get</span> y() <span class="ct">Number</span> {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return this</span>._y;</span><br><span class="cl"><span class="indent"></span>}</span><br><br><span class="cl"><span class="indent"></span>length() <span class="ct">Number</span> { <span class="cc">// class methods are public by default</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return</span> Math.sqrt(<span class="ck">this</span>._x*<span class="ck">this</span>._x + <span class="ck">this</span>._y*<span class="ck">this</span>._y);</span><br><span class="cl"><span class="indent"></span>}</span><br><br><span class="cl"><span class="indent"></span>normalize() Vec2 {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>l := <span class="ck">this</span>.length();</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return new</span> Vec2(<span class="ck">this</span>._x/l, <span class="ck">this</span>._y/l);</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br></div></code>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j1.html">Differences with vanilla</a></p>
+        <p class="next">Next&nbsp <a href="j3.html">Type parameters</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

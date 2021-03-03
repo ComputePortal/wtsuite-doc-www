@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Tags | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="h0.html">Getting started</a></p>
+          <p class="next">Next&nbsp <a href="h2.html">Variables</a></p>
+        </div>
+        <div class="subtitle">
+          <p>HTML documentation</p>
+          <div id="jump-to-article">
+            <a href="h0.html">1. Getting started</a>
+            <a href="h1.html" class="local">2. Tags</a>
+            <a href="h2.html">3. Variables</a>
+            <a href="h3.html">4. Operators</a>
+            <a href="h4.html">5. Functions</a>
+            <a href="h5.html">6. Templates</a>
+            <a href="h6.html">7. Looping and branching</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Tags</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Tags in template script are indentation based. Specifying attributes is similar to passing arguments into functions.</p>
+        </section>
+        <section>
+          <h2>Minimal html page</h2>
+          <p><em>wtsuite</em>'s template script uses indentations to nest tags. The code needed for a minimal page is:</p>
+          <code class="cblock"><div><span class="cl"><span class="cc">// !doctype is automatically added</span></span><br><span class="cl"><span class="cs">html</span></span><br><span class="cl"><span class="indent"></span><span class="cs">head</span></span><br><span class="cl"><span class="indent"></span><span class="cs">body</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>Attributes</h2>
+          <p>Attributes are passed into tags similar to how keyword arguments are passed into functions:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">body</span></span><br><span class="cl"><span class="indent"></span><span class="cs">div</span>(id=<span class="cv">"content"</span>)</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">input</span>(type=<span class="cv">"text"</span>, placeholder=<span class="cv">"..."</span>)</span><br></div></code>
+        </section>
+        <section>
+          <h2>Text</h2>
+          <p>Text nodes are literal strings, and, like regular tags, the indentation is used to determine under which tag to place them:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">div</span></span><br><span class="cl"><span class="indent"></span><span class="cs">a</span>(href=<span class="cv">"https://computeportal.com"</span>)</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cv">"Click here"</span></span><br></div></code>
+          <br>
+          <p>Literal strings can be placed inline with some tags:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">div</span></span><br><span class="cl"><span class="indent"></span><span class="cs">a</span>(href=<span class="cv">"https://computeportal.com"</span>) <span class="cv">"Click here"</span></span><br></div></code>
+          <br>
+          <p>Multiple text tags can be placed inline, each new tag being nested in the previous tag. You can then use the <code><</code> op to move back up a level:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">div</span></span><br><span class="cl"><span class="indent"></span><span class="cs">p</span> <span class="cv">"normal text "</span> <span class="cs">b</span> <span class="cv">"bold text"</span> <span class="ck">&lt;</span> <span class="cv">" normal text"</span></span><br></div></code>
+          <p>Note how the spaces before and after the <code>b</code> tag are preserved.</p>
+          <br>
+          <p>Single quotes <code>'</code>, double quotes <code>"</code>, and backticks <code>`</code> can be used to specify literal strings. Each type of quotes escapes the other types of quotes.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="h0.html">Getting started</a></p>
+        <p class="next">Next&nbsp <a href="h2.html">Variables</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

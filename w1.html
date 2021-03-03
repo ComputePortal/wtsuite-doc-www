@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+WebGLProgram macro | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="w0.html">Dynamic indexing</a></p>
+          <p class="next">Next&nbsp <a href="w2.html">Mandelbrot example</a></p>
+        </div>
+        <div class="subtitle">
+          <p>WebGL documentation</p>
+          <div id="jump-to-article">
+            <a href="w0.html">1. Dynamic indexing</a>
+            <a href="w1.html" class="local">2. WebGLProgram macro</a>
+            <a href="w2.html">3. Mandelbrot example</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>WebGLProgram macro</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Shader code can be placed in separate files and transpiled separately from javascript. The <code>WebGLProgram</code> macro provides convenient access to this transpilation from within javascript.</p>
+        </section>
+        <section>
+          <h2>Usage</h2>
+          <p>The literal paths of the vertex and fragment shaders must be passed into the <code>WebGLProgram</code> macro:</p>
+          <code class="cblock"><div><span class="cl">canvas := <span class="ck">cast</span>(<span class="ck">document</span>.getElementById(<span class="cv">"canvas"</span>), <span class="ct">HTMLCanvasElement</span>);</span><br><span class="cl">gl := canvas.getContext(<span class="cv">"webgl"</span>);</span><br><span class="cl">program := <span class="ck">new</span> <span class="ct">WebGLProgram</span>(gl, <span class="cv">"./vertex-shader.glsl"</span>, <span class="cv">"./fragment-shader.glsl"</span>);</span><br></div></code>
+          <br>
+          <p>The macro takes care of the transpilation, compilation and linkage. The returned value is of <code>WebGLProgram</code> type.</p>
+        </section>
+        <section>
+          <h2>Constants</h2>
+          <p>Constants exported from vertex or fragment shaders can be overwritten via the <code>WebGLProgram</code> macro:</p>
+          <code class="cblock"><div><span class="cl">program := <span class="ck">new</span> <span class="ct">WebGLProgram</span>(gl, </span><br><span class="cl"><span class="indent"></span><span class="cv">"./vertex-shader.glsl"</span>, {maxIter: <span class="cv">1000</span>}, </span><br><span class="cl"><span class="indent"></span><span class="cv">"./fragment-shader.glsl"</span>, {}</span><br><span class="cl">);</span><br></div></code>
+          <br>
+          <p>In this example <code>maxIter</code> is the name of the exported constant, and it must be an <code>int</code> (otherwise a transpiler error is thrown).</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="w0.html">Dynamic indexing</a></p>
+        <p class="next">Next&nbsp <a href="w2.html">Mandelbrot example</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

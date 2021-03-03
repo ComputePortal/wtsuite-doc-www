@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+RPC | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j6.html">Macros</a></p>
+          <p class="next">Next&nbsp <a href="j8.html">Import</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html" class="local">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>RPC</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>The <em>wtsuite</em> script compiler leverages the type system to auto-generate remote procedure call code. All you need to do is define an <code>rpc interface</code>, and specify the transfer mechanism of serialized javascript objects.</p>
+        </section>
+        <section>
+          <h2>rpc interface</h2>
+          <p>An <code>rpc interface</code> is similar to a regular interface, with some restrictions:</p>
+          <ul>
+            <li>
+none of the member functions can be getters or setters
+            </li>
+            <li>
+all member function arguments and return types must be fully typed (
+              <code>any</code>
+ can't be used)
+            </li>
+            <li>
+all member function return values must be of 
+              <code>Promise</code>
+ type (or use 
+              <code>async</code>
+)
+            </li>
+            <li>
+all member function arguments and resolved return types must be primitives, instances of universal classes, or instances that implement an 
+              <code>rpc interface</code>
+            </li>
+          </ul>
+          <br>
+          <p>An example <code>rpc interface</code> is defined as follows:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">rpc interface</span> Credentials {</span><br><span class="cl"><span class="indent"></span><span class="ck">async</span> login(email <span class="ct">String</span>, password <span class="ct">String</span>) <span class="ct">String</span>;</span><br><span class="cl"><span class="indent"></span><span class="ck">async</span> deleteAccount(email <span class="ct">String</span>) <span class="ct">String</span>;</span><br><span class="cl">}</span><br></div></code>
+        </section>
+        <section>
+          <h2>RPCClient</h2>
+          <p>On the client side you create a new <code>RPCClient</code>, specifying the <code>rpc interface</code>, and a connection function:</p>
+          <code class="cblock"><div><span class="cl">client := <span class="ck">new</span> RPCClient(Credentials, <span class="ck">function</span>(s <span class="ct">String</span>) <span class="ct">Promise</span>&lt;<span class="ct">String</span>&gt; {</span><br><span class="cl"><span class="indent"></span><span class="ck">return new</span> <span class="ct">Promise</span>(<span class="ck">function</span>(resolve <span class="ck">function</span>&lt;<span class="ct">String</span>, <span class="ck">void</span>&gt;, reject <span class="ck">function</span>&lt;<span class="ct">Error</span>, <span class="ck">void</span>&gt;) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>req := <span class="ck">new</span> XMLHttpRequest();</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>req.open(<span class="cv">'POST'</span>, <span class="cv">'/api/credentials'</span>);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>req.setRequestHeader(<span class="cv">'Content-Type'</span>, <span class="cv">'application/json'</span>);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>req.onerror = <span class="ck">function</span>(){reject(<span class="ck">new</span> <span class="ct">Error</span>(<span class="cv">'POST failed'</span>))};</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>req.onload = <span class="ck">function</span>(){</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="ck">if</span> (req.status==<span class="cv">200</span>){</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>resolve(req.responseText);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>} else {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>reject(<span class="ck">new</span> <span class="ct">Error</span>(<span class="cv">'POST failed'</span>));</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>req.send(s);</span><br><span class="cl"><span class="indent"></span>});</span><br><span class="cl">});</span><br></div></code>
+          <br>
+          <p>The connection function must accept exactly one <code>String</code> and return a <code>Promise&lt;String&gt;</code> (or be an <code>async</code> function returning a <code>String</code>).</p>
+          <br>
+          <p>When the connection has been established you can use the <code>RPCClient</code> instance as an implementation of the specified interface:</p>
+          <code class="cblock"><div><span class="cl">token := <span class="ck">await</span> client.login(email, password);</span><br></div></code>
+          <br>
+          <p>Note that the <code>RPCClient</code> constructor is a macro, and the <code>RPCClient</code> class can't be accessed as a variable. More generally you should note that only macros can reference interfaces.</p>
+        </section>
+        <section>
+          <h2>RPCServer</h2>
+          <p>On the server side you create a new <code>RPCServer</code>, specifying the same <code>rpc interface</code> as on the client side, and an instance of a class that implements that interface:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">class</span> DB <span class="ck">implements</span> Credentials {</span><br><span class="cl"><span class="indent"></span>constructor() {</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">async</span> login(email <span class="ct">String</span>, password <span class="ct">String</span>) <span class="ct">String</span> {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return</span> <span class="cv">'token...'</span>;</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">async</span> deleteAccount(email <span class="ct">String</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>console.log(<span class="cv">'deleting '</span> + email + <span class="cv">'...'</span>);</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl">server := <span class="ck">new</span> RPCServer(Credentials, <span class="ck">new</span> DB());</span><br></div></code>
+          <br>
+          <p>Received messages must subsequently be passed into the <code>RPCServer</code> via the <code>handle</code> function:</p>
+          <code class="cblock"><div><span class="cl">response := <span class="ck">await</span> server.handle(request); <span class="cc">// both request and response are Strings</span></span><br></div></code>
+          <br>
+          <p>Any error caught on the server side is relayed as a response back to the client.</p>
+        </section>
+        <section>
+          <h2>Nested rpc interfaces</h2>
+          <p>Arguments of <code>rpc interface</code> function members, that are rpc interfaces themselves, can be used for more complex communications. The messages are then passed back and forth until all requests have been satisfied. A complete example:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">rpc interface</span> Form {</span><br><span class="cl"><span class="indent"></span><span class="ck">async</span> setValue(s <span class="ct">String</span>);</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ck">rpc interface</span> ServerSide {</span><br><span class="cl"><span class="indent"></span><span class="ck">async</span> fillForm(f Form);</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ck">class</span> ServerSideData <span class="ck">implements</span> ServerSide {</span><br><span class="cl"><span class="indent"></span>constructor() {</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">async</span> fillForm(f Form) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">void</span> f.setValue(<span class="cv">'hello world'</span>);</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ck">class</span> ClientSideForm <span class="ck">implements</span> Form {</span><br><span class="cl"><span class="indent"></span>constructor() {</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">async</span> setValue(s <span class="ct">String</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>console.log(<span class="cv">'setting form value to: '</span>, s);</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ck">var</span> server RPCServer;</span><br><span class="cl"></span><br><span class="cl"><span class="cc">// test the rpc locally</span></span><br><span class="cl">client := <span class="ck">new</span> RPCClient(ServerSide, <span class="ck">async function</span>(s <span class="ct">String</span>) <span class="ct">String</span> {</span><br><span class="cl"><span class="indent"></span><span class="ck">return await</span> server.handle(s);</span><br><span class="cl">});</span><br><span class="cl"></span><br><span class="cl">server = <span class="ck">new</span> RPCServer(ServerSide, <span class="ck">new</span> ServerSideData());</span><br><span class="cl"></span><br><span class="cl">f := <span class="ck">new</span> ClientSideForm();</span><br><span class="cl"></span><br><span class="cl"><span class="ck">void</span> client.fillForm(f);</span><br></div></code>
+        </section>
+        <section>
+          <h2>Special situations</h2>
+          <h3>Return values</h3>
+          <p>An <code>rpc interface</code> member function that itself returns an <code>rpc interface</code> instance, reuses the established communication method for that returned instance.</p>
+          <br>
+          <p>Because there is no rpc equivalent of garbage collection, each returned <code>rpc interface</code> instance remains in memory until the connection is broken.</p>
+          <br>
+          <h3>Reuse of RPCClients</h3>
+          <p>If an <code>rpc interface</code> function member argument is a previous <code>RPCClient</code>, using the same communication context, then the <code>RPCServer</code> will try to reuse the original underlying object directly. The inverse is also true.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j6.html">Macros</a></p>
+        <p class="next">Next&nbsp <a href="j8.html">Import</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+wtsuite | html5 transpilers
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="std0.html">icons</a></p>
+        </div>
+      </header>
+      <article>
+        <section id="introduction">
+          <p><code>std/layout</code></p>
+        </section>
+        <section>
+          <h2>FlexStyle</h2>
+          <p>Example usage:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> layout <span class="ck">from</span> <span class="cv">"std/layout"</span></span><br><span class="cl"></span><br><span class="cl">div(style=<span class="cm">layout.FlexStyle</span>(hlc)) <span class="cc">// display: flex, direction: row, left aligned, vertically centered</span></span><br></div></code>
+          <br>
+          <p>The argument to <code>layout.FlexStyle</code> consists of three characters:</p>
+          <ol>
+            <li>
+              <code><b>h</b></code>
+ (flex-direction: row) or 
+              <code><b>v</b></code>
+ (flex-direction: column)
+            </li>
+            <li>
+              <code><b>l</b></code>
+(left aligned), 
+              <code><b>c</b></code>
+(horizontally centered), 
+              <code><b>r</b></code>
+(right aligned)
+            </li>
+            <li>
+              <code><b>t</b></code>
+(top aligned), 
+              <code><b>c</b></code>
+(vertically centered), 
+              <code><b>r</b></code>
+(bottom aligned)
+            </li>
+          </ol>
+          <br>
+          <p>In case of <code><b>h</b></code> the second character can be <code><b>s</b></code> (justify-content: space-between). Similarly in case of <code><b>v</b></code> the third character can also be <code><b>s</b></code>.</p>
+          <h3>hor</h3>
+          <p>The <code>layout.hor</code> tag extends the <code>div</code> tag, and accepts a two-letter argument, specifying the horizontal and vertical alignment (exactly like the second and third characters of the argument to <code>layout.FlexStyle</code>.</p>
+          <h3>ver</h3>
+          <p>The <code>layout.ver</code> tag extends the <code>div</code> tag, and accepts a two-letter argument, specifying the horizontal and vertical alignment (exactly like the <code>layout.hor</code> tag.</p>
+        </section>
+        <section>
+          <h2>GridStyle</h2>
+          <p>Example usage:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> layout <span class="ck">from</span> <span class="cv">"std/layout"</span></span><br><span class="cl"></span><br><span class="cl"><span class="cs">div</span>(style=<span class="cm">layout.GridStyle</span>(gutter=<span class="cv">1rem</span>, nColumns=<span class="cv">12</span>)) <span class="cc">// display: grid, grid-template-columns: [1fr, 1fr, ...]</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>contentdiv</h2>
+          <p>Example usage:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> layout <span class="ck">from</span> <span class="cv">"std/layout"</span></span><br><span class="cl"></span><br><span class="cl"><span class="cs">layout.contentdiv</span>(maxWidth=<span class="cv">1400px</span>)</span><br></div></code>
+          <br>
+          <p>Children of <code>layout.contentdiv</code> are centered on the page, and limited in width.</p>
+        </section>
+        <section>
+          <h2>multicol</h2>
+          <p>Example usage:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> layout <span class="ck">from</span> <span class="cv">"std/layout"</span></span><br><span class="cl"></span><br><span class="cl"><span class="cs">layout.multicol</span>(rowHeight=<span class="cv">1.2rem</span>, screenWidths=[<span class="cv">700px</span>])</span><br></div></code>
+          <br>
+          <p>The entries in <code>screenWidths</code> specify at which points an additional column is allowed to be displayed.</p>
+          <br>
+          <p>This only works properly if the height of each child is the same, and known in advance.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="std0.html">icons</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

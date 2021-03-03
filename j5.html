@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Type guards | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j4.html">Enum types</a></p>
+          <p class="next">Next&nbsp <a href="j6.html">Macros</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html" class="local">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Type guards</h1>
+      </header>
+      <article>
+        <section id="introduction">
+        </section>
+        <section>
+          <h2>instanceof</h2>
+          <p>Like typescript, the <code>instanceof</code> operator can be used as a type guard condition in combination with an <code>if</code> statement:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">function</span> toNumber(x <span class="ck">any</span>) <span class="ct">Number</span> {</span><br><span class="cl"><span class="indent"></span><span class="ck">if</span> (x <span class="ck">instanceof</span> <span class="ct">String</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return</span> <span class="ct">Number</span>.parseFloat(x);</span><br><span class="cl"><span class="indent"></span>} <span class="ck">else if</span> (x <span class="ck">instanceof</span> <span class="ct">Number</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return</span> x;</span><br><span class="cl"><span class="indent"></span>} <span class="ck">else if</span> (x <span class="ck">instanceof</span> <span class="ct">Boolean</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return</span> x ? <span class="cv">1</span> : <span class="cv">0</span>;</span><br><span class="cl"><span class="indent"></span>} <span class="ck">else if</span> (x <span class="ck">instanceof</span> <span class="ct">Array</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return</span> x.length;</span><br><span class="cl"><span class="indent"></span>} <span class="ck">else</span> {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">throw new</span> <span class="ct">Error</span>(<span class="cv">"Error: can't be converted into a number"</span>);</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl">console.log(toNumber(<span class="cv">"0.0"</span>)); <span class="cc">// 0.0</span></span><br><span class="cl">console.log(toNumber(<span class="cv">0.0</span>)); <span class="cc">// 0.0</span></span><br><span class="cl">console.log(toNumber(<span class="cv">false</span>)); <span class="cc">// 0.0</span></span><br><span class="cl">console.log(toNumber([])); <span class="cc">// 0.0</span></span><br><span class="cl">console.log(toNumber({})); <span class="cc">// Error: can't be converted into a number</span></span><br></div></code>
+          <br>
+          <h3>Details</h3>
+          <p>Type guards only work if the left-hand side of <code>instanceof</code> is a simple variable, and the right-hand side is a class or interface. The type of the variable is altered for the scope of the type guard branch.</p>
+          <br>
+          <p>Type guard conditions can be placed inside parentheses, and can be combined with other type guard conditions using the <code>&&</code> operator:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">if</span> ((x <span class="ck">instanceof</span> <span class="ct">Number</span>) && (y <span class="ck">instanceof</span> <span class="ct">Number</span>)) {</span><br><span class="cl"><span class="indent"></span>console.log(<span class="cv">"both x and y are numbers in this scope"</span>);</span><br><span class="cl">}</span><br></div></code>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j4.html">Enum types</a></p>
+        <p class="next">Next&nbsp <a href="j6.html">Macros</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

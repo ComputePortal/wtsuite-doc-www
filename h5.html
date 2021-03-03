@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Templates | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="h4.html">Functions</a></p>
+          <p class="next">Next&nbsp <a href="h6.html">Looping and branching</a></p>
+        </div>
+        <div class="subtitle">
+          <p>HTML documentation</p>
+          <div id="jump-to-article">
+            <a href="h0.html">1. Getting started</a>
+            <a href="h1.html">2. Tags</a>
+            <a href="h2.html">3. Variables</a>
+            <a href="h3.html">4. Operators</a>
+            <a href="h4.html">5. Functions</a>
+            <a href="h5.html" class="local">6. Templates</a>
+            <a href="h6.html">7. Looping and branching</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Templates</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Templates allow you to reuse groups of tags. You will typically use this for creating templates of pages.</p>
+        </section>
+        <section>
+          <h2>Page example</h2>
+          <p>Any composition of tags can be reused by defining a template:</p>
+          <code class="cblock"><div><span class="cl"><span class="cc">// file: page.wtt</span></span><br><span class="cl"><span class="ck">export template</span> page(title) <span class="ck">extends</span> html <span class="ck">super</span>()</span><br><span class="cl"><span class="indent"></span><span class="cs">head</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">meta</span>(charset=utf-8)</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">title</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="cm">$title</span></span><br><span class="cl"><span class="indent"></span><span class="cs">body</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">block</span> default </span><br></div></code>
+          <br>
+          <p>The template can then be instantiated as follows:</p>
+          <code class="cblock"><div><span class="cl"><span class="cc">// file: page-instance.wtt</span></span><br><span class="cl"><span class="ck">import</span> {page} <span class="ck">from</span> <span class="cv">"./page.wtt"</span></span><br><span class="cl"></span><br><span class="cl"><span class="cs">page</span>(title=<span class="cv">"web transpiler suite"</span>)</span><br><span class="cl"><span class="indent"></span><span class="cs">h1</span> <span class="cv">"Welcome"</span></span><br></div></code>
+          <br>
+          <p>Any child content of the new <code>page</code> tag is placed under the default <code>block</code>. If no default <code>block</code> is defined then the content is simply appended to the end.</p>
+        </section>
+        <section>
+          <h2>Blocks</h2>
+          <p>To explicitely append to a named block, you can use the <code>append</code> statement:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">page</span>(title=<span class="cv">"web transpiler suite"</span>)</span><br><span class="cl"><span class="indent"></span><span class="ck">append</span> default</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">h1</span> <span class="cv">"Welcome"</span></span><br></div></code>
+          <br>
+          <p>You can also replace the content of a tag using the <code>replace</code> statement:</p>
+          <code class="cblock"><div><span class="cl"><span class="cc">// file: page.wtt</span></span><br><span class="cl"><span class="ck">export template</span> page <span class="ck">extends</span> html <span class="ck">super</span>()</span><br><span class="cl"><span class="indent"></span><span class="cs">head</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">meta</span>(charset=utf-8)</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">title</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="ck">block</span> title</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="cv">"web transpiler suite"</span></span><br><span class="cl"></span><br><span class="cl"><span class="cc">// file: page-instance.wtt</span></span><br><span class="cl"><span class="cs">page</span></span><br><span class="cl"><span class="indent"></span><span class="ck">replace</span> title</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cv">"Web Transpiler Suite!"</span></span><br></div></code>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="h4.html">Functions</a></p>
+        <p class="next">Next&nbsp <a href="h6.html">Looping and branching</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

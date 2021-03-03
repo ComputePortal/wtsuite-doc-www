@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Dynamic indexing | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j10.html">Getting started (Math)</a></p>
+          <p class="next">Next&nbsp <a href="w1.html">WebGLProgram macro</a></p>
+        </div>
+        <div class="subtitle">
+          <p>WebGL documentation</p>
+          <div id="jump-to-article">
+            <a href="w0.html" class="local">1. Dynamic indexing</a>
+            <a href="w1.html">2. WebGLProgram macro</a>
+            <a href="w2.html">3. Mandelbrot example</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Dynamic indexing</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p><em>glsl es</em> doesn't support indexing dynamically, but <em>wtsuite</em> can auto-generate if-else trees that provide the convenience of dynamic indexing (the performance penalty of these if-else trees is usually an acceptable trade-off).</p>
+        </section>
+        <section>
+          <h2><code>getIndex</code></h2>
+          <p><code>getIndex</code> is a function-like macro allowing you to get a value from an array using a dynamic index:</p>
+          <code class="cblock"><div><span class="cl"><span class="ct">float</span> arr[<span class="cv">10</span>] = <span class="ct">float</span>[<span class="cv">10</span>](<span class="cv">1</span>,<span class="cv">2</span>,<span class="cv">3</span>,<span class="cv">4</span>,<span class="cv">5</span>,<span class="cv">6</span>,<span class="cv">7</span>,<span class="cv">8</span>,<span class="cv">9</span>,<span class="cv">10</span>);</span><br><span class="cl"></span><br><span class="cl"><span class="cc">// index i is unknown at compile time</span></span><br><span class="cl"><span class="ct">float</span> result = getIndex(arr, i);</span><br></div></code>
+        </section>
+        <section>
+          <h2><code>setIndex</code></h2>
+          <p><code>setIndex</code> is similar to <code>getIndex</code> but with three arguments instead of two:</p>
+          <code class="cblock"><div><span class="cl"><span class="ct">float</span> arr[<span class="cv">10</span>];</span><br><span class="cl"></span><br><span class="cl"><span class="cc">// index i is unknown at compile time</span></span><br><span class="cl">setIndex(arr, i, <span class="cv">1.0</span>);</span><br></div></code>
+          <br>
+          <p>The types must match of course.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j10.html">Getting started (Math)</a></p>
+        <p class="next">Next&nbsp <a href="w1.html">WebGLProgram macro</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

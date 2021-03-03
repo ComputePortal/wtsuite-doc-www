@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Operators | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="h2.html">Variables</a></p>
+          <p class="next">Next&nbsp <a href="h4.html">Functions</a></p>
+        </div>
+        <div class="subtitle">
+          <p>HTML documentation</p>
+          <div id="jump-to-article">
+            <a href="h0.html">1. Getting started</a>
+            <a href="h1.html">2. Tags</a>
+            <a href="h2.html">3. Variables</a>
+            <a href="h3.html" class="local">4. Operators</a>
+            <a href="h4.html">5. Functions</a>
+            <a href="h5.html">6. Templates</a>
+            <a href="h6.html">7. Looping and branching</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Operators</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>An overview of the operators the template script language.</p>
+          <br>
+          <p>Operators can be used in conventionaly manner, or via their internal function names.</p>
+          <br>
+          <table>
+            <thead>
+              <tr><th>Operator</th><th>Description</th><th>Equivalent function</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>+</td><td>Add numbers, join strings, concatenate lists, or merge dicts.</td><td><code>add(a, b)</code></td></tr>
+              <tr><td>&&</td><td>Shortcircuit evaluation of two boolean expression.</td><td><code>and(a, b)</code></td></tr>
+              <tr><td>/</td><td>Divides two numbers. Both numbers must have the same units, or the denominator must be unitless. The result is not truncated.</td><td><code>div(a, b)</code></td></tr>
+              <tr><td>==</td><td>Equality test for primitives. Can also be used to compare any to null.</td><td><code>eq(a, b)</code></td></tr>
+              <tr><td>>=</td><td>Input numbers must have same units, or both be unitless</td><td><code>ge(a, b)</code></td></tr>
+              <tr><td>[]</td><td>Indexing operator</td><td><code>get(container, key)</code></td></tr>
+              <tr><td>></td><td>Input numbers must have same units, or both be unitless</td><td><code>gt(a, b)</code></td></tr>
+              <tr><td>cond ? a : b</td><td>If <code>$cond==true</code> then <code>a</code> is evaluated and returned, otherwise <code>b</code> is evaluated and returned.</td><td><code>ifelse(cond, a, [second-cond], b, [...])</code></td></tr>
+              <tr><td><=</td><td>Input numbers must have same units, or both be unitless</td><td><code>le(a, b)</code></td></tr>
+              <tr><td><</td><td>Input numbers must have same units, or both be unitless</td><td><code>lt(a, b)</code></td></tr>
+              <tr><td>%</td><td>Input numbers must have same units, or rhs must be unitless.</td><td><code>mod(a, b)</code></td></tr>
+              <tr><td>*</td><td>Multiples two numbers. The rhs number must be unitless.</td><td><code>mul(a, b)</code></td></tr>
+              <tr><td>!=</td><td>Not equals for primitives. Can also be used to compare any to null</td><td><code>ne(a, b)</code></td></tr>
+              <tr><td>Unary -</td><td>Negate</td><td><code>neg(a)</code></td></tr>
+              <tr><td>!</td><td>Not</td><td><code>not(a)</code></td></tr>
+              <tr><td>-</td><td>Subtract two numbers. Must have same units. The <code>-</code> must be surrounded by spaces.</td><td><code>sub(a, b)</code></td></tr>
+              <tr><td>||</td><td>Shortcircuit boolean or</td><td><code>or(a, b)</code></td></tr>
+              <tr><td>!!</td><td>If-not-null-then operator, <a href="h2.html#if-not-null-then">more information</a></td><td>Syntactic sugar for <code>ifelse(a!=null, b, a)</code></td></tr>
+              <tr><td>??</td><td>Nullish coalescing operator, <a href="h2.html#nullish-coalescing">more information</a></td><td>Syntactic sugor for <code>ifelse(a==null, b, a)</code></td></tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="h2.html">Variables</a></p>
+        <p class="next">Next&nbsp <a href="h4.html">Functions</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

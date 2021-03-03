@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Type parameters | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j2.html">Code samples</a></p>
+          <p class="next">Next&nbsp <a href="j4.html">Enum types</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html" class="local">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Type parameters</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Some built-in types require parameters to be completely typed. Similarly to java and c++, angled brackets are used for type parameters.</p>
+        </section>
+        <section>
+          <h2>Array</h2>
+          <p>An array takes a single optional type parameter, which can itself be an array:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> x <span class="ct">Array</span><<span class="ct">Array</span><<span class="ct">Number</span>>> = [[<span class="cv">0.0</span>, <span class="cv">1.0</span>], [<span class="cv">2.0</span>, <span class="cv">3.0</span>]]</span><br><span class="cl"></span><br><span class="cl">x[<span class="cv">0</span>][<span class="cv">0</span>] = <span class="cv">10</span>; <span class="cc">// ok</span></span><br><span class="cl">x[<span class="cv">0</span>] = <span class="cv">10</span>; <span class="cc">// error</span></span><br></div></code>
+          <br>
+          <p>An array without a type parameter can contain any type (i.e. falls back to <code>Array&lt;any&gt;</code>).</p>
+        </section>
+        <section>
+          <h2>Set</h2>
+          <p>Similar to an array, a set takes a single optional type parameter (which can itself be a set):</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> s <span class="ct">Set</span><<span class="ct">Number</span>> = <span class="ck">new</span> <span class="ct">Set</span>();</span><br><span class="cl"></span><br><span class="cl">x.add(<span class="cv">10</span>); <span class="cc">// ok</span></span><br><span class="cl">x.add(<span class="cv">false</span>); <span class="cc">// error</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>Map</h2>
+          <p>A map takes two type parameters:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> m <span class="ct">Map</span><<span class="ct">Int</span>, <span class="ct">String</span>> = <span class="ck">new</span> <span class="ct">Map</span>();</span><br><span class="cl"></span><br><span class="cl">m.set(<span class="cv">0</span>, <span class="cv">"first entry"</span>); <span class="cc">// ok</span></span><br><span class="cl">m.set(<span class="cv">"first entry"</span>, <span class="cv">0</span>); <span class="cc">// error</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>Object</h2>
+          <p>Unlike vanilla JS the <code>Object</code> class is not considered to be the parent class of nearly every instance. Instead it is solely used as a dict-like container type, mapping string keys to arbitrary values.</p>
+          <br>
+          <p>Dict-like type parameters are used to specify the types of these values:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> obj <span class="ct">Object</span>&lt;key1: <span class="ct">String</span>, key2: <span class="ct">Array</span>&lt;<span class="ct">String</span>>> = {</span><br><span class="cl"><span class="indent"></span>key1: <span class="cv">"value"</span>,</span><br><span class="cl"><span class="indent"></span>key2: [<span class="cv">"a"</span>, <span class="cv">"b"</span>, <span class="cv">"c"</span>],</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>If the <code>Object</code> entry names are not known, but only the common value type, then a single unnamed type parameter can be used for the value type:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> obj <span class="ct">Object</span>&lt;<span class="ct">String</span>&gt; = {};</span><br><span class="cl">obj[<span class="cv">"key1"</span>] = <span class="cv">"value"</span>; <span class="cc">// ok</span></span><br><span class="cl">obj[<span class="cv">"key2"</span>] = [<span class="cv">"a"</span>, <span class="cv">"b"</span>, <span class="cv">"c"</span>]; <span class="cc">// Error: expected String, got Array&lt;String&gt;</span></span><br></div></code>
+          <br>
+          <p>An <code>Object</code> without type parameters falls back to <code>Object&lt;any&gt;</code>.</p>
+        </section>
+        <section>
+          <h2>Tuple</h2>
+          <p>Tuples are fixed length arrays. Each tuple entry can have a different type. Tuple type parameters are not optional, and at least 2 must be specified.</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> pair <span class="ct">Tuple</span>&lt;<span class="ct">String</span>, <span class="ct">Object</span>, <span class="ct">Int</span>&gt; = <span class="ck">new</span> <span class="ct">Tuple</span>(<span class="cv">"name"</span>, {}, <span class="cv">0</span>);</span><br></div></code>
+          <br>
+          <p>When looping over a <code>Map&lt;KeyType, ValueType&gt;</code> using <code>for (let x of ...)</code>, the type of <code>x</code> is <code>Tuple&lt;KeyType,&nbsp;ValueType&gt;</code>.</p>
+        </section>
+        <section>
+          <h2>Promise&lt;ResolveType&gt;</h2>
+          <p>ResolveType can be void.</p>
+        </section>
+        <section>
+          <h2>Event&lt;TargetType&gt;</h2>
+          <p>TargetType is typically HTMLElement.</p>
+        </section>
+        <section>
+          <h2>IDBRequest&lt;ResultType&gt;</h2>
+        </section>
+        <section>
+          <h2>function&lt;ArgType1, ..., ReturnType&gt;</h2>
+          <p>ReturnType can be <code>void</code>.</p>
+        </section>
+        <section>
+          <h2>class&lt;ArgType1, ..., InstanceType&gt;</h2>
+          <p>The ArgTypes are the arguments of the constructor. The InstanceType is a class or an interface.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j2.html">Code samples</a></p>
+        <p class="next">Next&nbsp <a href="j4.html">Enum types</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

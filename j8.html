@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Import | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j7.html">RPC</a></p>
+          <p class="next">Next&nbsp <a href="j9.html">Export</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html" class="local">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Import</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p><code>import</code> (and <code>export</code>) statements are similar to those in vanilla JS, but are used to bundle everything during transpilation time. The final code bundle, interpreted by the browser or NodeJS, doesn't contain any <code>import</code> (or <code>export</code>) statements. There is also no notion of <em>modules</em> in the final code bundle, but the dynamic <code>import()</code> function can still be used (returning <code>Promise&lt;any&gt;</code>).</p>
+          <br>
+          <p>Default imports/exports are not available.</p>
+          <br>
+          <p>Import statements must be in the top-level scope of the file. They don't necessarily need to appear at the top of the file though (eg. if you don't want the import to be available for the entire scope of the file).</p>
+        </section>
+        <section>
+          <h2>Namespace-like import</h2>
+          <p>The most convenient way of importing variables is by using a namespace-like wrapper variable:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> namespace <span class="ck">from</span> <span class="cv">"module-path"</span>;</span><br></div></code>
+          <p>This statement imports everything that is exported by <code>"module-path"</code>. The imported variables can then be accessed as members of <code>namespace</code>:</p>
+          <code class="cblock"><div><span class="cl">console.log(namespace.export1);</span><br></div></code>
+          <br>
+          <p>It is an error to reference <code>namespace</code> directly (and nested namespaces etc.):</p>
+          <code class="cblock"><div><span class="cl">console.log(namespace); <span class="cc">// Error</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>Named import</h2>
+          <p>Named variables can be imported directly from other files using the following syntax:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> {export1} <span class="ck">from</span> <span class="cv">"module-path"</span>;</span><br></div></code>
+          <br>
+          <p>Multiple variables can be imported at once:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> {export1, export2, ...} <span class="ck">from</span> <span class="cv">"module-path"</span>;</span><br></div></code>
+          <br>
+          <p>Named imported variables can be given new names:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> {export1 <span class="ck">as</span> alias1} <span class="ck">from</span> <span class="cv">"module-path"</span>;</span><br></div></code>
+          <p>The variable named <code>export1</code> in <code>"module-path"</code> is henceforth named <code>alias1</code>.</p>
+          <br>
+          <p>When importing multiple variables directly, any number of them can be aliased:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> {export1, export2 <span class="ck">as</span> alias2, ...} <span class="ck">from</span> <span class="cv">"module-path"</span>;</span><br></div></code>
+          <br>
+          <p>Imports must of course themselves be exported explicitly by the specified module.</p>
+        </section>
+        <section>
+          <h2>NodeJS require</h2>
+          <p>The NodeJS <code>require()</code> function returns values of <code>any</code> type because the filepath argument's value isn't necessarily known at compile time.</p>
+          <br>
+          <p>To be able to benefit from the name- and type-resolution of the transpiler you can use an <code>import</code> statement instead:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> fs <span class="ck">from</span> <span class="cv">"fs"</span>;</span><br></div></code>
+          <br>
+          <p>For builtin NodeJS modules this is transpiled into:</p>
+          <code class="cblock"><div><span class="cl">const fs = require('fs');</span><br></div></code>
+        </section>
+        <section>
+          <h2>Empty import</h2>
+          <p>A module can also be imported just for its side-effects:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> <span class="cv">"module-path"</span>;</span><br></div></code>
+          <p>This assures that the code of that module is included in the final code bundle, and that no new variables are inserted in the current scope.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j7.html">RPC</a></p>
+        <p class="next">Next&nbsp <a href="j9.html">Export</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

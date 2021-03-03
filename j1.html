@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Differences with vanilla | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j0.html">Getting started</a></p>
+          <p class="next">Next&nbsp <a href="j2.html">Code samples</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html" class="local">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Differences with vanilla</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>This page tries to highlight the differences between <em>wtsuite</em>'s typed javascript and vanilla javascript. If you already know javascript, then it will be very easy to adapt to <em>wtsuite</em>'s javascript implementation.</p>
+          <br>
+          <p>Note that <em>wtsuite</em>'s typed javascript implementation differs from <em>typescript</em>.</p>
+        </section>
+        <section>
+          <h2>Semicolons</h2>
+          <p>There is no automatic semicolon insertion for line breaks, thus semicolons are not optional. And each statement must end with a semicolon.</p>
+          <br>
+          <p>Semicolons aren't though needed for statements that end with a closing brace: function statements, class statements, class members, enums and interfaces.</p>
+        </section>
+        <section>
+          <h2>Typed variables</h2>
+          <p>Typed javascript allows you to annotate variables with optional type specifiers:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> untypedMessage = <span class="cv">"Hello world"</span>;</span><br><span class="cl"><span class="ck">var</span> typedMessage <span class="ct">String</span> = <span class="cv">"Hello world"</span>;</span><br><span class="cl"></span><br><span class="cl">untypedMessage = <span class="cv">0.0</span>; <span class="cc">// ok</span></span><br><span class="cl">typedMessage = <span class="cv">0.0</span>; <span class="cc">// error</span></span><br></div></code>
+          <br>
+          <p>The type comes after the variable name. This is similar to other languages with optional typing.</p>
+          <br>
+          <p>Leaving out the type is actually syntactic sugar for <b>any</b>:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> untypedMessage <span class="ck">any</span> = <span class="cv">"Hello world"</span>;</span><br><span class="cl">untypedMessage = <span class="cv">0.0</span>; <span class="cc">// ok</span></span><br></div></code>
+          <br>
+          <p>Except for <code>any</code>, <code>void</code>, <code>function</code>, and <code>class</code>, types always start with an upper case letter. There are no special primitive lower case types (eg. there is no <code>string</code>, only <code>String</code>).</p>
+        </section>
+        <section>
+          <h2>Auto let</h2>
+          <p>Instead of explicitely specifying the type of a variable, or leaving it untyped and not benifitting from the type checking, you can use an automatic let statement:</p>
+          <code class="cblock"><div><span class="cl">x := <span class="cv">0.0</span>;</span><br></div></code>
+          <p>This transpiles into:</p>
+          <code class="cblock"><div><span class="cl">let x = 0.0;</span><br></div></code>
+          <br>
+          <p>Further assignments must then be exactly the type of that initial right-hand side expression, or a subtype thereof. The following would give an error:</p>
+          <code class="cblock"><div><span class="cl">x = <span class="cv">false</span>; <span class="cc">// Error: expected Number, got Boolean</span></span><br></div></code>
+          <br>
+        </section>
+        <section>
+          <h2>Typed functions</h2>
+          <p>The following examples add two numbers:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">function</span> untypedAdd(a, b) <span class="ck">any</span> { <span class="cc">// can also be used for string concatenation</span></span><br><span class="cl"><span class="indent"></span><span class="ck">return</span> a+b;</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ck">function</span> typedAdd(a <span class="ct">Number</span>, b <span class="ct">Number</span>) <span class="ct">Number</span> { <span class="cc">// only for numbers</span></span><br><span class="cl"><span class="indent"></span><span class="ck">return</span> a+b;</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>A function that returns a value must at least have the <code>any</code> specifier after the argument list. Leaving out the return type specifier is syntactic sugar for <code>void</code>.</p>
+          <br>
+          <p>When porting javascript code to <em>wtsuite</em> script code, function return type specifiers are the first things you need to add.</p>
+        </section>
+        <section>
+          <h2>Class properties</h2>
+          <p>Class instance properties need to be declared before any member function:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">class</span> Vec2 {</span><br><span class="cl"><span class="indent"></span><span class="cc">// forgetting these declarations will give an error in the constructor</span></span><br><span class="cl"><span class="indent"></span>_x; <span class="cc">// typing is optional though</span></span><br><span class="cl"><span class="indent"></span>_y;</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">constructor</span>(x, y) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>._x = x;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>._y = y;</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>When porting javascript code to <em>wtsuite</em> script code, class property declarations will thus be another thing you need to add.</p>
+          <br>
+          <p>The same example class, but fully typed:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">class</span> Vec2 {</span><br><span class="cl"><span class="indent"></span>_x <span class="ct">Number</span>;</span><br><span class="cl"><span class="indent"></span>_y <span class="ct">Number</span>;</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">constructor</span>(x <span class="ct">Number</span>, y <span class="ct">Number</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>._x = x;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>._y = y;</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>Class properties that begin with an underscore are private, otherwise they are public.</p>
+        </section>
+        <section>
+          <h2>Class member roles</h2>
+          <p>In addition to the vanilla <code>get</code>, <code>set</code> and <code>static</code> member roles, <em>wtsuite</em> also provides the <code>private</code> and <code>abstract</code> roles.</p>
+          <br>
+          <p>Class members are public by default, unless preceded by the <code>private</code> keyword:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">class</span> Vec2 {</span><br><span class="cl"><span class="indent"></span>...</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">private</span> normalizeInplace() {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>l := Math.sqrt(<span class="ck">this</span>._x*<span class="ck">this</span>._x + <span class="ck">this</span>._y*<span class="ck">this</span>._y);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>._x /= l;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>._y /= l;</span><br><span class="cl"><span class="indent"></span>}</span><br></div></code>
+          <p>Private member functions can be accessed from within instances of that class, or instances of child classes (i.e. similar to protected in java).</p>
+          <br>
+          <p>Abstract member functions can be used to allow child classes to implement specific behavior, as done in many object oriented languages. In most cases we recommend using interfaces instead, but abstract members can however be useful to add non-(de)serializeable properties to (de)serializable instances.</p>
+          <br>
+          <p>An example of an abstract member function:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">class</span> AbstractVec2 { <span class="cc">// abstract class, for non-euclidean spaces</span></span><br><span class="cl"><span class="indent"></span>...</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">abstract</span> length() <span class="ct">Number</span>;</span><br></div></code>
+          <br>
+          <p>Classes containing abstract member functions, or child classes with unimplemented parent abstract members, cannot be instantiated.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j0.html">Getting started</a></p>
+        <p class="next">Next&nbsp <a href="j2.html">Code samples</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

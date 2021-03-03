@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Download | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+        </div>
+        <h1>Download</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>The <em>wtsuite</em> tools can be compiled from source, or the binaries can be installed directly for MSWindow, MacOS or Linux (64bit).</p>
+          <br>
+          <p>Syntax coloring and indentation is included for <em>vim</em>.</p>
+        </section>
+        <section>
+          <h2>Latest binaries</h2>
+          <p>Pick the package that is appropriate for your system:</p>
+          <ul>
+            <li>
+              <a href="https://sourceforge.net/projects/wtsuite/files/wtsuite_0.5.0-linux_x86_64.tar.gz/download">wtsuite_0.5.0-linux_x86_64.tar.gz</a>
+            </li>
+            <li>
+              <a href="https://sourceforge.net/projects/wtsuite/files/wtsuite_0.5.0-ms_windows.zip/download">wtsuite_0.5.0-ms_windows.zip</a>
+            </li>
+            <li>
+              <a href="https://sourceforge.net/projects/wtsuite/files/wtsuite_0.5.0-mac_darwin.tar.gz/download">wtsuite_0.5.0-mac_darwin.tar.gz</a>
+            </li>
+          </ul>
+          <br>
+          <p>Once you've unpacked the binaries you must place them in your path (see details below).</p>
+          <h3>MacOS installation</h3>
+          <p>Should be similar to the linux installation, see below.</p>
+          <h3>Linux installation</h3>
+          <p>Unpack the binaries into a directory included in your <code>$PATH</code>, typically <code>/usr/local/bin</code></p>
+          <br>
+          <p>Alternatively use <code>$HOME/bin</code>:</p>
+          <br>
+          <code class="cblock"><div><span class="cl">> mkdir -p $HOME/bin</span><br><span class="cl">> export PATH=${PATH}:$HOME/bin</span><br></div></code>
+          <h3>MS Windows installation</h3>
+          <p>Unzip the downloaded package into a location that you are able to remember.</p>
+          <br>
+          <p>Look for the <b>Environment variables</b> menu inside the <b>System properties</b> menu of the <b>System</b> section of the <b>Control Panel</b>.</p>
+          <br>
+          <p>Add the directory where you unpacked the binaries to the system variable named <b>Path</b> (separated by a semicolon from any previous paths).</p>
+        </section>
+        <section>
+          <h2>Compiling from source</h2>
+          <p>We recommend you use a linux based environment for this.</p>
+          <br>
+          <p>The source code can be download from our <a href="https://github.com/computeportal/wtsuite">github repository</a>.</p>
+          <br>
+          <p>Running <code>make</code> in the root directory should do the trick. The resulting files are placed in the <code>build</code> directory.</p>
+          <br>
+          <p>Running <code>make install</code> compiles the tools and installs the binaries into <code>/usr/local/bin</code></p>
+        </section>
+        <section>
+          <h2>IDE plugins</h2>
+          <p>Only syntax coloring/indentation for <em>vim</em> is currently provided.</p>
+          <h3>VIM</h3>
+          <p>The vim files can be downloaded <a href="https://sourceforge.net/projects/wtsuite/files/wtsuite_0.5.0-vim_syntax.tar.gz/download">here</a>.</p>
+          <br>
+          <p>The indent files should be copied into the <code>$HOME/.vim/indent/</code> directory, the syntax coloring files should be copied into the <code>$HOME/.vim/syntax/</code> directory.</p>
+          <br>
+          <p>Don't forget to append the following lines to your <code>vimrc</code> file:</p>
+          <code class="cblock"><div><span class="cl">au BufNewFile,BufRead *.wtt set filetype=wtt</span><br><span class="cl">au BufNewFile,BufRead *.wts set filetype=wts</span><br><span class="cl">au BufNewFile,BufRead *.glsl set filetype=glsl</span><br></div></code>
+          <br>
+          <p>(If you can think of better file extensions, please let us know.)</p>
+        </section>
+      </article>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

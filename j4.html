@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Enum types | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j3.html">Type parameters</a></p>
+          <p class="next">Next&nbsp <a href="j5.html">Type guards</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html" class="local">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Enum types</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Enums are collections of predefined constants. Like java, enums in wtsuite&apos;s typed javascript are syntactic sugar for classes with some automatically generated static members.</p>
+        </section>
+        <section>
+          <h2>Simple example</h2>
+          <p>Enums are defined as follows:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">enum</span> ErrorCode { <span class="cc">// implicitely extends Int</span></span><br><span class="cl"><span class="indent"></span>NO_ERROR, <span class="cc">// 0</span></span><br><span class="cl"><span class="indent"></span>SYNTAX_ERROR, <span class="cc">// 1</span></span><br><span class="cl"><span class="indent"></span>GENERIC_ERROR <span class="cc">// 2</span></span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>Enums are class-like types, and can be used as follows:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">function</span> printErrorMessage(code ErrorCode) {</span><br><span class="cl"><span class="indent"></span>console.log(ErrorCode.key(code)); <span class="cc">// prints 'NO_ERROR', 'SYNTAX_ERROR' or 'GENERIC_ERROR'</span></span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl">printErrorMessage(ErrorCode.GENERIC_ERROR);</span><br></div></code>
+          <br>
+          <p>Instances of enums can still be used as instances of their parent types:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">function </span> addInts(a <span class="ct">Int</span>, b <span class="ct">Int</span>) {</span><br><span class="cl"><span class="indent"></span><span class="ck">return</span> a+b;</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl">addInts(ErrorCode.NO_ERROR, ErrorCode.GENERIC_ERROR) == ErrorCode.GENERIC_ERROR; <span class="cc">// true</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>Advanced example</h2>
+          <p>This example is similar to the example in <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html">Oracle's java documentation on enums</a> (this way you can immediately see the difference between java and wtsuite&apos;s typed javascript):</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">class</span> Planet {</span><br><span class="cl"><span class="indent"></span>mass <span class="ct">Number</span>;</span><br><span class="cl"><span class="indent"></span>radius <span class="ct">Number</span>;</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span>constructor(m <span class="ct">Number</span>, r <span class="ct">Number</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>.mass = m; <span class="cc">// in kg</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">this</span>.radius = r; <span class="cc">// in m</span></span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ck">enum</span> SSPlanet <span class="ck">extends</span> Planet {</span><br><span class="cl"><span class="indent"></span>MERCURY = <span class="ck">new</span> Planet(<span class="cv">3.303e+23</span>, <span class="cv">2.4397e6</span>),</span><br><span class="cl"><span class="indent"></span>VENUS&nbsp;&nbsp; = <span class="ck">new</span> Planet(<span class="cv">4.869e+24</span>, <span class="cv">6.0518e6</span>),</span><br><span class="cl"><span class="indent"></span>EARTH&nbsp;&nbsp; = <span class="ck">new</span> Planet(<span class="cv">5.976e+24</span>, <span class="cv">6.3781e6</span>),</span><br><span class="cl"><span class="indent"></span>MARS&nbsp;&nbsp;&nbsp; = <span class="ck">new</span> Planet(<span class="cv">6.421e+23</span>, <span class="cv">3.3972e6</span>),</span><br><span class="cl"><span class="indent"></span>JUPITER = <span class="ck">new</span> Planet(<span class="cv">1.900e+27</span>, <span class="cv">7.1492e7</span>),</span><br><span class="cl"><span class="indent"></span>SATURN&nbsp; = <span class="ck">new</span> Planet(<span class="cv">5.688e+26</span>, <span class="cv">6.0268e7</span>),</span><br><span class="cl"><span class="indent"></span>URANUS&nbsp; = <span class="ck">new</span> Planet(<span class="cv">8.686e+25</span>, <span class="cv">2.5559e7</span>),</span><br><span class="cl"><span class="indent"></span>NEPTUNE = <span class="ck">new</span> Planet(<span class="cv">1.024e+26</span>, <span class="cv">2.4746e7</span>)</span><br><span class="cl">}</span><br></div></code>
+        </section>
+        <section>
+          <h2>Details</h2>
+          <p>Enum members are separated by commas. Each enum member has a name and a value.</p>
+          <br>
+          <h3>Implicit values</h3>
+          <p>The value is optional in some cases. If it is left out for each member, then the enum implicitely extends <code>Int</code>, and each member is assigned a unique integer value, starting at 0 and incremented by 1 for each following member.</p>
+          <br>
+          <p>There is no auto-incrementing if some, but not all, values are specified.</p>
+          <br>
+          <p>If the first member value is a literal string which exactly matches the name of that member, then unspecified remaining values are implicit strings with the same value as the names of those other members.</p>
+          <br>
+          <p>All enum values must be specified in all other cases.</p>
+          <br>
+          <h3>Implicit parent class</h3>
+          <p>If no parent class is specified, and if all values are implicit integers, or literal integers, then the enum implicitely extends <code>Int</code>.</p>
+          <br>
+          <p>The <code>String</code> class is similarly implicitely extended if all values are implicit or literal strings.</p>
+          <br>
+          <p>A parent class must be specified in all other cases.</p>
+          <br>
+          <h3>Static member functions</h3>
+          <ul>
+            <li>
+              <code>&lt;EnumType&gt;.values() Array&lt;EnumType&gt;</code>
+: returns array of enum members.
+            </li>
+            <li>
+              <code>&lt;EnumType&gt;.value(key String) EnumType</code>
+: returns enum member which has same name as 
+              <code>key</code>
+. Returns 
+              <code>null</code>
+ if not found.
+            </li>
+            <li>
+              <code>&lt;EnumType&gt;.keys() Array&lt;String&gt;</code>
+: returns array of enum members names.
+            </li>
+            <li>
+              <code>&lt;EnumType&gt;.key(x EnumType) String</code>
+: returns name of the enum value.
+            </li>
+          </ul>
+          <br>
+          <p>Enum members can't have the same name as one of these functions. Using capitalized names for enum members avoids any such naming conflicts.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j3.html">Type parameters</a></p>
+        <p class="next">Next&nbsp <a href="j5.html">Type guards</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

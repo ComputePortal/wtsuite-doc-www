@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Export | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="j8.html">Import</a></p>
+          <p class="next">Next&nbsp <a href="j10.html">Math documentation</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html" class="local">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Export</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p><code>export</code> (and <code>import</code>) statements are similar to those in vanilla JS, but are used to bundle everything during transpilation time. The final code bundle, interpreted by the browser or NodeJS, doesn't contain any <code>export</code> (or <code>import</code>) statements.</p>
+          <br>
+          <p>Default exports are not available.</p>
+          <br>
+          <p>Export statements must be in the top-level scope of the file.</p>
+        </section>
+        <section>
+          <h2>Named export</h2>
+          <p>Top-level module declarations can be exported using the <code>export</code> keyword:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">export var</span> x = <span class="cv">0</span>;</span><br><span class="cl"><span class="ck">export const</span> X = <span class="cv">1</span>;</span><br><span class="cl"><span class="ck">export function</span> fn(name <span class="ct">String</span>) {</span><br><span class="cl"><span class="indent"></span>console.log(`hello ${name}`);</span><br><span class="cl">}</span><br><span class="cl"><span class="ck">export class</span> MyClass {...}</span><br><span class="cl"><span class="ck">export interface</span> MyInterface {...}</span><br><span class="cl"><span class="ck">export enum</span> MyEnum {...}</span><br></div></code>
+        </section>
+        <section>
+          <h2>Export list</h2>
+          <p>Sometimes you want to make a variable available for export, after it has been declared. This can happen when you import a variable, extend its functionality, and then re-export it:</p>
+          <code class="cblock"><div><span class="cl"><span class="cc">// Factory.wts</span></span><br><span class="cl"><span class="ck">import</span> {factory} <span class="ck">from</span> <span class="cv">"FactoryInternal.wts"</span>;</span><br><span class="cl"><span class="ck">import</span> <span class="cv">"index.wts"</span>; <span class="cc">// side-effects fill the factory</span></span><br><span class="cl"><span class="ck">export</span> {factory};<span class="cc">//re-export using an export list</span></span><br></div></code>
+          <br>
+          <p>Export lists can also rename the exported variables:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">export</span> {internalName1 <span class="ck">as</span> externalName1, ...};</span><br></div></code>
+        </section>
+        <section>
+          <h2>Aggregate export</h2>
+          <p>Library modules can be created by importing parts of your API you want to expose, and then exporting them from a single file:</p>
+          <code class="cblock"><div><span class="cl"><span class="cc">// myLibrary.wts</span></span><br><span class="cl"><span class="ck">import</span> {part1} <span class="ck">from</span> <span class="cv">"Part1.wts"</span>;</span><br><span class="cl"><span class="ck">import</span> {part2} <span class="ck">from</span> <span class="cv">"Part2.wts"</span>;</span><br><span class="cl"><span class="ck">import</span> {part3} <span class="ck">from</span> <span class="cv">"Part3.wts"</span>;</span><br><span class="cl"><span class="ck">export</span> {part1, part2, part3};</span><br></div></code>
+          <br>
+          <p>Aggregate exports allow you to do this slightly more concisely:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">export</span> {part1} <span class="ck">from</span> <span class="cv">"Part1.wts"</span>;</span><br><span class="cl"><span class="ck">export</span> {part2} <span class="ck">from</span> <span class="cv">"Part2.wts"</span>;</span><br><span class="cl"><span class="ck">export</span> {part3} <span class="ck">from</span> <span class="cv">"Part3.wts"</span>;</span><br></div></code>
+          <p>Variables touched by aggregate exports are not inserted in the local scope.</p>
+          <br>
+          <p>As with export lists, an aggregate export can rename a variable:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">export</span> {part1 <span class="ck">as</span> alias1} <span class="ck">from</span> <span class="cv">"Part1.wts"</span>;</span><br></div></code>
+          <br>
+          <p>If you are aggregating exports that were already aggregated before, it can be convenient to export everything without specifying the names:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">export</span> * <span class="ck">from</span> <span class="cv">"./child-directory/index.wts"</span></span><br></div></code>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="j8.html">Import</a></p>
+        <p class="next">Next&nbsp <a href="j10.html">Math documentation</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

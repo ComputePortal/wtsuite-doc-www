@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Getting started | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="g2.html">Client-side search</a></p>
+          <p class="next">Next&nbsp <a href="h0.html">HTML documentation</a></p>
+        </div>
+        <div class="subtitle">
+          <p>CSS documentation</p>
+          <div id="jump-to-article">
+            <a href="c0.html" class="local">1. Getting started</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Getting started</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Style sheets can be defined using conventional style tags in the head block, or via the <code>style</code> attribute, which <em>wtsuite</em> tries to intelligently turn into a common site-wide stylesheet.</p>
+        </section>
+        <section>
+          <h2><code>style</code> tag</h2>
+          <p>Linking to a separate style sheet file is done with the <code>link</code> tag:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">head</span></span><br><span class="cl"><span class="indent"></span><span class="cs">link</span>(href=<span class="cv">"/style.css"</span> rel=<span class="cv">"stylesheet"</span> type=<span class="cv">"text/css"</span>)</span><br></div></code>
+          <br>
+          <p>Style sheet markup can be entered directly in the style tag:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">head</span></span><br><span class="cl"><span class="indent"></span><span class="cs">style</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span>body {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>height: <span class="cv">100%</span>;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>}</span><br></div></code>
+        </section>
+        <section>
+          <h2>Named styles</h2>
+          <p>Named styles are like variable directives:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">export style</span> main</span><br><span class="cl"><span class="indent"></span>body {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>height: <span class="cv">100%</span>;</span><br><span class="cl"><span class="indent"></span>}</span><br></div></code>
+          <br>
+          <p>Named styles can be transpiled into css files by <em>wt-style</em>:</p>
+          <code class="cblock"><div><span class="cl">> wt-style main.wtt</span><br></div></code>
+          <p><code>main.wtt</code> in this case must export a style variable or dictionary variable called <code>main</code>.</p>
+          <br>
+          <p>Named styles can also be used directly in style tags:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> {main} <span class="ck">from</span> <span class="cv">"./main.wtt"</span></span><br><span class="cl">head</span><br><span class="cl"><span class="indent"></span>style</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cm">$main</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>CSS extensions</h2>
+          <p>Like <em>LESS</em> and <em>SCSS</em> <em>wtsuite</em> provides some extensions of css to make it much easier to build complex websites with.</p>
+          <br>
+          <p>The following example code demonstrates many of these features:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> mobileMedia = <span class="cv">"@media screen and (max-width: 700px)"</span></span><br><span class="cl"></span><br><span class="cl"><span class="ck">style</span> main</span><br><span class="cl"><span class="indent"></span>section {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>margin: <span class="cv">4rem</span> <span class="cm">$</span>(m := <span class="cv">20%</span>) <span class="cv">4rem</span> <span class="cm">$m</span>;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>width: <span class="cm">$</span>(<span class="cv">100%</span> - <span class="cv">2</span>*<span class="cm">$m</span>);</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="indent"></span>.quotes-wrapper {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>display: grid;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>grid-template-columns: <span class="cv">1fr</span> <span class="cv">1fr</span>;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>grid-column-gap: <span class="cv">10%</span>;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>grid-row-gap: <span class="cv">4rem</span>;</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="cm">$mobileMedia</span> {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>display: block;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>> * {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>margin-bottom: <span class="cv">4rem</span>;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>:last-child {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>margin-bottom: <span class="cv">0</span>;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span>}</span><br></div></code>
+          <p>Note that both selectors and rules accept substituted variables. Also note the bubbling of nested rules.</p>
+          <h3><code>@wrap</code></h3>
+          <p>To avoid div-soup, and to keep your html markup free from any styling related concerns, <em>wtsuite</em> has a <code>@wrap</code> css extension.</p>
+          <br>
+          <p>It allows you to wrap any tag in your html with a <code>div</code>, or another tag-type, from within your stylesheet:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">style</span></span><br><span class="cl"><span class="indent"></span><span class="cm">@wrap</span> section {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>class: section-wrapper; <span class="cc">// creates a <div class="section-wrapper"></div> wrapper</span></span><br><span class="cl"><span class="indent"></span>}</span><br></div></code>
+          <br>
+          <p>The <code>@wrap</code> rules are evaluated before the any other rules in your stylesheet. They must be declared at the top-level of the stylesheet, and are evaluated in the order they are encountered by the parser (allow you to nest wrappers).</p>
+          <h3><code>@wrap-siblings</code></h3>
+          <p><code>@wrap-siblings</code>  is similar to <code>@wrap</code>, but wraps neighbouring siblings in the same wrapper tag.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="g2.html">Client-side search</a></p>
+        <p class="next">Next&nbsp <a href="h0.html">HTML documentation</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

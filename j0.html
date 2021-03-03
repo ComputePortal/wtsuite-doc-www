@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Getting started | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="h6.html">HTML documentation</a></p>
+          <p class="next">Next&nbsp <a href="j1.html">Differences with vanilla</a></p>
+        </div>
+        <div class="subtitle">
+          <p>JS documentation</p>
+          <div id="jump-to-article">
+            <a href="j0.html" class="local">1. Getting started</a>
+            <a href="j1.html">2. Differences with vanilla</a>
+            <a href="j2.html">3. Code samples</a>
+            <a href="j3.html">4. Type parameters</a>
+            <a href="j4.html">5. Enum types</a>
+            <a href="j5.html">6. Type guards</a>
+            <a href="j6.html">7. Macros</a>
+            <a href="j7.html">8. RPC</a>
+            <a href="j8.html">9. Import</a>
+            <a href="j9.html">10. Export</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Getting started</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>A simple example to get you acquainted with <em>wtsuite</em>&apos;s typed javascript.</p>
+        </section>
+        <section>
+          <h2>Hello world</h2>
+          <p>Create a file name <code>example.wts</code> with the following content:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> message <span class="ct">String</span> = <span class="cv">"Hello world"</span>;</span><br><span class="cl"><span class="cc">// message = 0.0; // uncomment this line to see the transpiler throw a type error</span></span><br><span class="cl">console.log(message);</span><br></div></code>
+          <br>
+          <p>Transpile <em>example.wts</em>:</p>
+          <code class="cblock"><div><span class="cl">> wt-script example.wts -o example.js --target nodejs</span><br></div></code>
+          <br>
+          <p>The resulting javascript will have the following content:</p>
+          <code class="cblock"><div><span class="cl">'use strict'</span><br><span class="cl">...</span><br><span class="cl">console.log('Hello world');</span><br></div></code>
+          <br>
+          <p>Note that a header is added, comments are removed from the output, and different literal string quotes are used. Single quotes are used by default in the transpiler output for literal strings, but double quotes are used if the literal string contains a single quote itself.</p>
+          <br>
+          <p>The output can be run using <em>nodejs</em>:</p>
+          <code class="cblock"><div><span class="cl">> nodejs example.js</span><br><span class="cl">Hello world</span><br></div></code>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="h6.html">HTML documentation</a></p>
+        <p class="next">Next&nbsp <a href="j1.html">Differences with vanilla</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Documentation | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <style>@font-face{font-family:FreeSerifMath;src:url(FreeSerifMath.woff2)}
+.article-list{
+  counter-reset:article-list-item;
+  display:flex;
+  flex-direction:column;
+}
+.article-list > a::before{
+  content:counter(article-list-item) ". ";
+  counter-increment:article-list-item;
+}
+article{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+article .sections-wrapper{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  height:min-content;
+  margin:-16px 0 -16px 0;
+}
+article .section-wrapper:first-child{
+  display:none;
+}
+article .section-wrapper{
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  margin:16px 0  16px 0;
+  width:25%;
+}
+article section{
+  margin-bottom:0;
+  max-width:228px;
+  min-width:228px;
+}
+article section:last-child{
+  margin-bottom:0;
+}
+@media only screen and (max-width:  933.3px) {
+  article .section-wrapper{
+    width:50%;
+  }
+
+  }
+@media screen and (max-width: 700px) {
+  article .section-wrapper{
+    width:100%;
+  }
+
+  }
+    </style>
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+        </div>
+        <h1>Documentation</h1>
+      </header>
+      <article>
+        <div class="sections-wrapper">
+          <div class="section-wrapper">
+            <section id="introduction">
+            </section>
+          </div>
+          <div class="section-wrapper">
+            <section>
+              <h2 id="general">General</h2>
+              <div class="article-list">
+                <a href="g0.html">Overview of tools</a>
+                <a href="g1.html">Package management</a>
+                <a href="g2.html">Client-side search</a>
+              </div>
+            </section>
+          </div>
+          <div class="section-wrapper">
+            <section>
+              <h2 id="css">CSS</h2>
+              <div class="article-list">
+                <a href="c0.html">Getting started</a>
+              </div>
+            </section>
+          </div>
+          <div class="section-wrapper">
+            <section>
+              <h2 id="html_">HTML</h2>
+              <div class="article-list">
+                <a href="h0.html">Getting started</a>
+                <a href="h1.html">Tags</a>
+                <a href="h2.html">Variables</a>
+                <a href="h3.html">Operators</a>
+                <a href="h4.html">Functions</a>
+                <a href="h5.html">Templates</a>
+                <a href="h6.html">Looping and branching</a>
+              </div>
+            </section>
+          </div>
+          <div class="section-wrapper">
+            <section>
+              <h2 id="js">JS</h2>
+              <div class="article-list">
+                <a href="j0.html">Getting started</a>
+                <a href="j1.html">Differences with vanilla</a>
+                <a href="j2.html">Code samples</a>
+                <a href="j3.html">Type parameters</a>
+                <a href="j4.html">Enum types</a>
+                <a href="j5.html">Type guards</a>
+                <a href="j6.html">Macros</a>
+                <a href="j7.html">RPC</a>
+                <a href="j8.html">Import</a>
+                <a href="j9.html">Export</a>
+              </div>
+            </section>
+          </div>
+          <div class="section-wrapper">
+            <section>
+              <h2 id="math">Math</h2>
+              <div class="article-list">
+                <a href="j10.html">Math samples</a>
+              </div>
+            </section>
+          </div>
+          <div class="section-wrapper">
+            <section>
+              <h2 id="webgl">WebGL</h2>
+              <div class="article-list">
+                <a href="w0.html">Dynamic indexing</a>
+                <a href="w1.html">WebGLProgram macro</a>
+                <a href="w2.html">Mandelbrot example</a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </article>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

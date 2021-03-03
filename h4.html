@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Functions | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="h3.html">Operators</a></p>
+          <p class="next">Next&nbsp <a href="h5.html">Templates</a></p>
+        </div>
+        <div class="subtitle">
+          <p>HTML documentation</p>
+          <div id="jump-to-article">
+            <a href="h0.html">1. Getting started</a>
+            <a href="h1.html">2. Tags</a>
+            <a href="h2.html">3. Variables</a>
+            <a href="h3.html">4. Operators</a>
+            <a href="h4.html" class="local">5. Functions</a>
+            <a href="h5.html">6. Templates</a>
+            <a href="h6.html">7. Looping and branching</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Functions</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Besides many builtin functions, you can also define your own functions. All functions return a single value. There are no "methods".</p>
+        </section>
+        <section>
+          <h2>User defined functions</h2>
+          <h3>Function statements</h3>
+          <p>User defined functions are composed of semicolon separated expressions. The last expression is the return value of the function (empty functions are not allowed):</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">function</span> bgImageURI(icon, height, color) {</span><br><span class="cl"><span class="indent"></span><span class="cm">svg-uri</span>(factory, {icon: <span class="cm">$icon</span>, height: <span class="cm">$height</span>, style: {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>fill: <span class="cm">$color</span>,</span><br><span class="cl"><span class="indent"></span>}})</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>This is a function statement, and is essentialy syntactic sugar for a <code>var</code> statement with a function expression rhs.</p>
+          <h3>Function expressions</h3>
+          <p>Function expressions are not named, and are thus defined as follows:</p>
+          <code class="cblock"><div><span class="cl"><span class="cm">function</span>(icon, height, color) {</span><br><span class="cl"><span class="indent"></span><span class="cm">svg-uri</span>(factory, {icon: <span class="cm">$icon</span>, height: <span class="cm">$height</span>, style: {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>fill: <span class="cm">$color</span>,</span><br><span class="cl"><span class="indent"></span>}})</span><br><span class="cl">}</span><br></div></code>
+        </section>
+        <section>
+          <h2>Referencing functions</h2>
+          <p>Functions are first class citizens:</p>
+          <ul>
+            <li>
+functions can be referenced like other variables
+            </li>
+            <li>
+functions can be used as arguments
+            </li>
+          </ul>
+          <br>
+          <p>For example:</p>
+          <code class="cblock"><div><span class="cl"><span class="cm">map</span>([<span class="cv">1.1</span>,<span class="cv">2.2</span>,<span class="cv">3.3</span>], <span class="cm">$ceil</span>) <span class="cc">// returns a list of rounded values</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>Builtin functions</h2>
+          <table>
+            <thead>
+              <tr><th>Function</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>caps(&lt;string&gt;)</code></td><td>Smartly capitalizes the input <code>&lt;string&gt;</code> for use in titles</td></tr>
+              <tr><td><code>ceil(&lt;number&gt;)</code></td><td>rounded up <code>&lt;int&gt;</code> value if input is unitless, otherwise rounded up <code>&lt;float&gt;</code> with same unit as input</td></tr>
+              <tr><td><code>contains(&lt;list|dict&gt;, item|key)</code></td><td>returns <code>true</code> if <code>item</code> is in <code>&lt;list&gt;</code>, or if <code>key</code> is in <code>&lt;dict&gt;</code></td></tr>
+              <tr><td><code>cos(&lt;number&gt;)</code></td><td>Cosine of unitless <code>&lt;number&gt;</code> in radians</td></tr>
+              <tr><td><code>darken(&lt;color&gt;, &lt;fraction|pct&gt;)</code></td><td>Darken the input color by a relative amount (fraction or percentage of 255 is subtracted from each channel, with 0 as lowest possible value)</td></tr>
+              <tr><td><code>dict(keys &lt;list&gt;, items &lt;list&gt;)</code> or <code>dict(pairs &lt;list&gt;)</code></td><td>Creates a dict mapping <code>keys</code> to <code>items</code>, or <code>pairs[i][0]</code> to <code>pairs[i][1]</code></td></tr>
+              <tr><td><code>dir(path &lt;string&gt;)</code></td><td>Extracts the directory part from a file path</td></tr>
+              <tr><td><code>dump(&lt;any&gt;)</code></td><td>Print the value of any expression as part of the transpiler terminal output. The same value is also returned.</td></tr>
+              <tr><td><code>error(message1 &lt;string&gt;, [message2 ...])</code></td><td>Prints an error message to the transpiler terminal output, and immediately stops the transpilation.</td></tr>
+              <tr><td><code>filter(&lt;list&gt;, &lt;function&gt;)</code> or <code>filter(&lt;dict&gt;, keys &lt;list&gt;)</code></td><td>Filters list entries based on the boolean result of test function, or filters dict entries whose keys appear in the <code>keys</code> list.</td></tr>
+              <tr><td><code>float(&lt;number&gt;, unit &lt;string&gt;)</code></td><td>Creates a new float with a forced unit, ignoring the original unit.</td></tr>
+              <tr><td><code>floor(&lt;number&gt;)</code></td><td>rounded down <code>&lt;int&gt;</code> value if input is unitless, otherwise rounded down <code>&lt;float&gt;</code> with same unit as input</td></tr>
+              <tr><td><code>int(&lt;number&gt;)</code></td><td>Truncates a number and removes its unit</td></tr>
+              <tr><td><code>invert(&lt;color&gt;)</code></td><td>Each color channel is recalculated as <code>new = 255 - old</code></td></tr>
+              <tr><td><code>isbool(&lt;any&gt;)</code></td><td>Boolean type test</td></tr>
+              <tr><td><code>iscolor(&lt;any&gt;)</code></td><td>Color type test</td></tr>
+              <tr><td><code>isdict(&lt;any&gt;)</code></td><td>Dict type test</td></tr>
+              <tr><td><code>isfloat(&lt;any&gt;, [unit &lt;string&gt;])</code></td><td>Float type test, with optional unit test</td></tr>
+              <tr><td><code>isfunction(&lt;any&gt;)</code></td><td>Function type test</td></tr>
+              <tr><td><code>isint(&lt;any&gt;)</code></td><td>Integer type test</td></tr>
+              <tr><td><code>islist(&lt;any&gt;)</code></td><td>List type test</td></tr>
+              <tr><td><code>isnull(&lt;any&gt;)</code></td><td>Null test, equivalent to <code>x==null</code></td></tr>
+              <tr><td><code>issame(a &lt;any&gt;, b &lt;any&gt;)</code></td><td>Deep equality test for values of any type</td></tr>
+              <tr><td><code>isstring(&lt;any&gt;)</code></td><td>String type test</td></tr>
+              <tr><td><code>istype(&lt;any&gt;, type &lt;string&gt;)</code></td><td>Type test where type can be "bool", "color", "dict", "float", "int", "list", "null", or "string"</td></tr>
+              <tr><td><code>items(&lt;dict&gt;)</code></td><td>Map dict to list of values (i.e. not the keys).</td></tr>
+              <tr><td><code>join(strings &lt;list&gt;, [sep &lt;string&gt;])</code></td><td>Join strings by a separator string. The separator string defaults to the empty string.</td></tr>
+              <tr><td><code>keys(&lt;dict&gt;)</code></td><td>Map dict to list of keys.</td></tr>
+              <tr><td><code>len(&lt;list|dict|string&gt;)</code></td><td>Return integer length of list, dict or string</td></tr>
+              <tr><td><code>lighten(&lt;color&gt;, &lt;fraction|pct&gt;)</code></td><td>Lighten the input color by a relative amount (fraction or percentage of 255 is added to each channel, with 255 as highest possible value)</td></tr>
+              <tr><td><code>list(&lt;string&gt;)</code> or <code>list(&lt;int&gt;, &lt;any&gt;)</code></td><td>Splits a string into a lists of its characters, or creates a list of given length filled a constant value</td></tr>
+              <tr><td><code>lower(&lt;string&gt;)</code></td><td>Lower case string</td></tr>
+              <tr><td><code>map(&lt;list&gt;, fn &lt;function&gt;)</code></td><td>Returns a new list with the same length as the old list, where each value has been mapped by calling <code>fn(value)</code></td></tr>
+              <tr><td><code>max(a, b)</code></td><td>Returns largest number</td></tr>
+              <tr><td><code>min(a, b)</code></td><td>Returns smallest number</td></tr>
+              <tr><td><code>merge(a, b, [c...])</code></td><td>Merge multiple dictionaries. Nested dictionaries are merged recursively where possible.</td></tr>
+              <tr><td><code>mix(a &lt;color&gt;, b &lt;color&gt;, f &lt;<fraction|pct>&gt;)</code></td><td>Mixes two colors linearly. <code>f</code> must be a unitless number between 0 and 1, or a percentage (between 0% and 100%)</td></tr>
+              <tr><td><code>path(&lt;string&gt;)</code></td><td>Returns the absolute filepath. The transpiler searches for the file using the PWD. The file must exist.</td></tr>
+              <tr><td><code>px(&lt;float&gt;)</code></td><td>Converts a rem float to px (and trivially px to px). Throws an error for other units. Requires <code>rem-per-px</code> to be set in your site config file or as a commandline option</td></tr>
+              <tr><td><code>rad(&lt;float&gt;)</code></td><td>Converts unitless number from degrees to radians</td></tr>
+              <tr><td><code>rand(seed &lt;int&gt;, a &lt;number&gt;, b &lt;number&gt;)</code></td><td>Generates a random number in the specified range. If both <code>a</code> and <code>b</code> are integers, then the result is an integer. Otherwise it tries to keep the unit (input units must be identical though).</td></tr>
+              <tr><td><code>replace(s &lt;string&gt;, sub &lt;string&gt;, new &lt;string&gt;)</code></td><td>Replace all non-overlapping occurences of <code>sub</code> with <code>new</code></td></tr>
+              <tr><td><code>reverse(&lt;list&gt;)</code></td><td>Reverse a list</td></tr>
+              <tr><td><code>round(&lt;number&gt;)</code></td><td>rounded to nearest <code>&lt;int&gt;</code> value if input is unitless, otherwise rounded to nearest integer and return <code>&lt;float&gt;</code> with same unit as input</td></tr>
+              <tr><td><code>seq(n &lt;int&gt;)</code> or <code>seq(a &lt;number&gt;, [incr &lt;number&gt;], b &lt;number&gt;)</code></td><td>Create a list with entries from 0 to <code>n-1</code>, or from <code>a</code> to <code>b</code> with <code>incr</code> intervals. <code>incr</code> defaults to 1.</td></tr>
+              <tr><td><code>sin(&lt;number&gt;)</code></td><td>Sine of unitless <code>&lt;number&gt;</code> in radians</td></tr>
+              <tr><td><code>slice(&lt;list&gt; start &lt;int&gt;, [stop &lt;int&gt;])</code> or <code>slice(&lt;list, start &lt;int&gt;, [incr &lt;int&gt;], stop &lt;int&gt;)</code></td><td>Extracts a sublist. <code>stop == -1</code> signifies the end of the list.</td></tr>
+              <tr><td><code>sort(&lt;list&gt;, [keyfn|compfn &lt;function&gt;])</code></td><td>Sorts a lists. A comparison or key function is optional. A key function accepts a single argument and returns a number, which is subsequently sorted using the <code><</code> operator. A comparison function accepts two arguments <code>a and <code>b</code>, and returns true if <code>a and <code>b</code> are in the correct order.</code></code></td></tr>
+              <tr><td><code>split(&lt;string&gt;, sep &lt;string&gt;)</code></td><td>Split a string into a list of strings. If no substring matches <code>sep</code> a list with the original string as a single entry is returned.</td></tr>
+              <tr><td><code>sqrt(&lt;number&gt;)</code></td><td>Calculate square root of number, keeping its unit.</td></tr>
+              <tr><td><code>str(&lt;any&gt;)</code></td><td>Aggresively convert the argument into a string. A string is trivially converted into a string.</td></tr>
+              <tr><td><code>svg-path-pos(path &lt;list|string&gt;, f &lt;number&gt;)</code></td><td>Calculate the position along an svg path.  <code>f</code> is between 0 and 1 or 0% and 100%. Result is a list containing the calculated <code>x</code> and <code>y</code> values.</td></tr>
+              <tr><td><code>tan(&lt;number&gt;)</code></td><td>Tan of unitless <code>&lt;number&gt;</code> in radians</td></tr>
+              <tr><td><code>uid()</code></td><td>Generates unique string identifier</td></tr>
+              <tr><td><code>upper(&lt;string&gt;)</code></td><td>Upper case string</td></tr>
+              <tr><td><code>values(&lt;dict&gt;)</code></td><td>Map dict to list of pairs. First entry in each pair is the key, second entry is the value.</td></tr>
+              <tr><td><code>xor(a, b)</code></td><td>Exclusive or of two boolean values.</td></tr>
+              <tr><td><code>year()</code></td><td>Returns current year (i.e. 2021) as an integer</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="h3.html">Operators</a></p>
+        <p class="next">Next&nbsp <a href="h5.html">Templates</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

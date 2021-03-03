@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Mandelbrot example | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <style>@font-face{font-family:FreeSerifMath;src:url(FreeSerifMath.woff2)}
+div#mandelbrot{
+  margin-left:auto;
+  margin-right:auto;
+  max-width:600px;
+  position:relative;
+}
+div#mandelbrot #mandelbrot-replay{
+  background-color:#0000;
+  background-image:url('data:image/svg+xml;utf8,%3Csvg%20viewBox=%220%200%2024%2024%22%20style=%22fill:%23a6a6a6%3Bheight:48px%3Bwidth:48px%3B%22%20xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns:xlink=%22http:%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cpath%20d=%22M17.65%206.35C16.2%204.9%2014.21%204%2012%204A8%208%200%200%200%204%2012A8%208%200%200%200%2012%2020C15.73%2020%2018.84%2017.45%2019.73%2014H17.65C16.83%2016.33%2014.61%2018%2012%2018A6%206%200%200%201%206%2012A6%206%200%200%201%2012%206C13.66%206%2015.14%206.69%2016.22%207.78L13%2011H20V4L17.65%206.35z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+  border:none;
+  height:3rem;
+  position:absolute;
+  right:0;
+  top:0;
+  width:3rem;
+  z-index:10;
+}
+div#mandelbrot #mandelbrot-replay:hover{
+  background-image:url('data:image/svg+xml;utf8,%3Csvg%20viewBox=%220%200%2024%2024%22%20style=%22fill:%23d9d9d9%3Bheight:48px%3Bwidth:48px%3B%22%20xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns:xlink=%22http:%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cpath%20d=%22M17.65%206.35C16.2%204.9%2014.21%204%2012%204A8%208%200%200%200%204%2012A8%208%200%200%200%2012%2020C15.73%2020%2018.84%2017.45%2019.73%2014H17.65C16.83%2016.33%2014.61%2018%2012%2018A6%206%200%200%201%206%2012A6%206%200%200%201%2012%206C13.66%206%2015.14%206.69%2016.22%207.78L13%2011H20V4L17.65%206.35z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+  cursor:pointer;
+}
+    </style>
+    <script type="text/javascript" src="bundle.js"></script>
+
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="w1.html">WebGLProgram macro</a></p>
+        </div>
+        <div class="subtitle">
+          <p>WebGL documentation</p>
+          <div id="jump-to-article">
+            <a href="w0.html">1. Dynamic indexing</a>
+            <a href="w1.html">2. WebGLProgram macro</a>
+            <a href="w2.html" class="local">3. Mandelbrot example</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Mandelbrot example</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>WebGL is powerful enough to create a live zoom animation of the mandelbrot fractal.</p>
+        </section>
+        <section>
+          <h2>Vertex shader</h2>
+          <p>The vertex shader code doesn't do anything special:</p>
+          <code class="cblock"><div><span class="cl"><span class="cc">// vertex-shader.glsl</span></span><br><span class="cl"><span class="ck">attribute</span> <span class="ct">vec2</span> aPos;</span><br><span class="cl"><span class="ck">attribute</span> <span class="ct">vec2</span> aDelta;</span><br><span class="cl"><span class="ck">attribute</span> <span class="ct">vec2</span> aCenter;</span><br><span class="cl"></span><br><span class="cl"><span class="ck">varying highp</span> <span class="ct">vec2</span> vDelta;</span><br><span class="cl"><span class="ck">varying highp</span> <span class="ct">vec2</span> vCenter;</span><br><span class="cl"></span><br><span class="cl"><span class="ck">void</span> main() {</span><br><span class="cl"><span class="indent"></span>vDelta = aDelta;</span><br><span class="cl"><span class="indent"></span>vCenter = aCenter;</span><br><span class="cl"><span class="indent"></span>gl_Position = <span class="ct">vec4</span>(aPos.x, aPos.y, <span class="cv">0.0</span>, <span class="cv">1.0</span>);</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>The vertex position is split up into a tri center and an offset part, which slightly increases the precision of the calculation.</p>
+        </section>
+        <section>
+          <h2>Fragment shader</h2>
+          <p>This is where the magic happens:</p>
+          <code class="cblock"><div><span class="cl"><span class="cc">// fragment-shader.glsl</span></span><br><span class="cl"><span class="ck">precision highp</span> <span class="ct">float</span>;</span><br><span class="cl"></span><br><span class="cl"><span class="ck">varying highp</span> <span class="ct">vec2</span> vDelta;</span><br><span class="cl"><span class="ck">varying highp</span> <span class="ct">vec2</span> vCenter;</span><br><span class="cl"></span><br><span class="cl"><span class="ck">import</span> {blackbody} <span class="ck">from</span> <span class="cv">"std/colors"</span>;</span><br><span class="cl"></span><br><span class="cl"><span class="ck">const</span> <span class="ct">int</span> maxIter = <span class="cv">300</span>;</span><br><span class="cl"></span><br><span class="cl"><span class="ck">export </span><span class="ct">vec2</span> nextGen(<span class="ct">vec2</span> z, <span class="ct">vec2</span> z2, <span class="ct">vec2</span> c) {</span><br><span class="cl"><span class="indent"></span><span class="ct">float</span> x = z2.x - z2.y + c.x;</span><br><span class="cl"><span class="indent"></span><span class="ct">float</span> y = 2.0*z.x*z.y + c.y;</span><br><span class="cl"><span class="indent"></span><span class="ck">return</span> <span class="ct">vec2</span>(x, y);</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ck">export </span><span class="ct">vec4</span> pickColor(<span class="ct">float</span> iter) {</span><br><span class="cl"><span class="indent"></span>iter = mod(iter, <span class="cv">100.0</span>);</span><br><span class="cl"><span class="indent"></span><span class="ck">if</span> (iter < <span class="cv">50.0</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return</span> blackbody(iter/<span class="cv">50.0</span>);</span><br><span class="cl"><span class="indent"></span>} <span class="ck">else</span> {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">return</span> blackbody((<span class="cv">50.0</span> - iter)/<span class="cv">50.0</span>);</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ct">float</span> naive(<span class="ct">vec2</span> c) {</span><br><span class="cl"><span class="indent"></span><span class="ct">vec2</span> z2 = <span class="ct">vec2</span>(<span class="cv">0.0</span>, <span class="cv">0.0</span>);</span><br><span class="cl"><span class="indent"></span><span class="ct">vec2</span> z = <span class="ct">vec2</span>(<span class="cv">0.0</span>, <span class="cv">0.0</span>);</span><br><span class="cl"><span class="indent"></span><span class="ct">float</span> iterFinal = <span class="ct">float</span>(maxIter);</span><br><span class="cl"><span class="indent"></span><span class="ct">vec2</span> z2Final = z2;</span><br><span class="cl"><span class="indent"></span><span class="ck">for</span>(<span class="ct">int</span> iter=<span class="cv">1</span>; iter < maxIter; iter++) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ct">float</span> prev = z2.x + z2.y;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>z = nextGen(z, z2, c);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>z2 = <span class="ct">vec2</span>(z.x*z.x, z.y*z.y);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ct">float</span> next = z2.x + z2.y;</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ck">if</span> (prev <= <span class="cv">4.0</span> && next > <span class="cv">4.0</span>) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>iterFinal = <span class="ct">float</span>(iter);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>z2Final = z2;</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">if</span> (iterFinal < float(maxIter)) {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ct">float</span> log_zn = <span class="cv">0.5</span>*log(z2Final.x + z2Final.y);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="ct">float</span> nu = log(log_zn/log(<span class="cv">2.0</span>))/log(<span class="cv">2.0</span>);</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>iterFinal = iterFinal + <span class="cv">1.0</span> - nu;</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl"></span><br><span class="cl"><span class="indent"></span><span class="ck">return</span> iterFinal;</span><br><span class="cl">}</span><br><span class="cl"></span><br><span class="cl"><span class="ck">void</span> main() {</span><br><span class="cl"><span class="indent"></span><span class="ct">float</span> iter = naive(<span class="ct">vec2</span>(vCenter.x + vDelta.x, vCenter.y + vDelta.y));</span><br><span class="cl"><span class="indent"></span>gl_FragColor = pickColor(iter);</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>Note how the <code>blackbody</code> function is imported from the standard library.</p>
+        </section>
+        <section>
+          <h2>Javascript code</h2>
+          <p>The shaders can be imported directly into javascript with the <code>WebGLProgram</code> <a href="w1.html">macro</a>.</p>
+          <br>
+          <p>If you are interested in the full source of this example you can have a look in the <a href="https://github.com/computeportal/wtsuite-doc/tree/main/documentation/webgl">github repository</a>.</p>
+          <br>
+          <p>We are still working in high-level library functions to make webgl easier to use.</p>
+        </section>
+        <section>
+          <h2>Result</h2>
+          <p>Press the auto-(re)start button to see the animation.</p>
+          <br>
+          <div id="mandelbrot">
+            <canvas id="mandelbrot-canvas">
+            </canvas>
+            <button id="mandelbrot-replay">
+            </button>
+          </div>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="w1.html">WebGLProgram macro</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+    <script>
+function onload(){
+yRiGBS();}
+window.addEventListener("load",onload,false);
+    </script>
+  </body>
+</html>

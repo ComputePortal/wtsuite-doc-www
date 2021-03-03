@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Package management | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="g0.html">Overview of tools</a></p>
+          <p class="next">Next&nbsp <a href="g2.html">Client-side search</a></p>
+        </div>
+        <div class="subtitle">
+          <p>General documentation</p>
+          <div id="jump-to-article">
+            <a href="g0.html">1. Overview of tools</a>
+            <a href="g1.html" class="local">2. Package management</a>
+            <a href="g2.html">3. Client-side search</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Package management</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Like <em>npm</em> a <code>package.json</code> file is used to specify dependencies and declare exports. Packages can easily be imported or exported from git repositories.</p>
+          <br>
+          <p><code>package.json</code> must be available in the root directory of your project (it can be an empty dict though).</p>
+          <br>
+          <p>You should think of a package as a bundle of modules.</p>
+        </section>
+        <section>
+          <h2>Importing packages</h2>
+          <p>Packages can be imported by specifying their repository urls in the <code>package.json</code> file. For example the <code>std</code> package is typically specified as:</p>
+          <code class="cblock"><div><span class="cl">{</span><br><span class="cl"><span class="indent"></span>"dependencies": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>"std": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>"minVersion": "0.0.0",</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>"maxVersion": "2.0.0",</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>"url": "github.com/computeportal/wtlib"</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>Package modules can then be imported by using <code><em>pkg-name</em>/<em>module-name</em></code> (the module name can contain slashes):</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> basic <span class="ck">from</span> <span class="cv">"std/templates/basic"</span></span><br></div></code>
+          <br>
+          <p>You must use the <em><a href="#wt-pkg-sync">wt-pkg-sync</a></em> command before using new packages.</p>
+        </section>
+        <section>
+          <h2>Package versions</h2>
+          <p>The <code>minVersion</code> and <code>maxVersion</code> entries in <code>package.json</code> are optional. They are are in <a href="https://semver.org">semver</a> format.</p>
+          <br>
+          <p>When <code>minVersion</code> is omitted then it defaults to <code>"0.0.0"</code>. When <code>maxVersion</code> is omitted then the most recent version of the imported package is used.</p>
+          <br>
+          <p><code>minVersion</code> specifies the minimum required version of the imported package to be used.</p>
+          <br>
+          <p><code>maxVersion</code> specifies the first version considered not to be backward compatible, so it the exclusive upper limit (and not the actual max version allowed to be used).</p>
+        </section>
+        <section>
+          <h2 id="taggin-in-git">Tagging in git</h2>
+          <p>Imported git repositories must have commits that are tagged with valid <a href="https://semver.org">semver's</a> before they can be used.</p>
+          <br>
+          <p>If you use the <em>git</em> command line tools, you can do this as follows for the current commit:</p>
+          <code class="cblock"><div><span class="cl">> git tag -a v1.2.3 -m "release v1.2.3"</span><br></div></code>
+          <br>
+          <p>If you would like to tag a previous commit you can specify the first few letters of that commit's hash:</p>
+          <code class="cblock"><div><span class="cl">> git tag -a v1.2.3 -m "release v1.2.3" f9c72...</span><br></div></code>
+          <br>
+          <p>The <code>v</code> preceding the <a href="https://semver.org">semver</a> is optional, but is customary and <em>wt-pkg-sync</em> understands it. The tag message is optional.</p>
+          <br>
+          <p>Don't forget to push your tags to the repository afterwards:</p>
+          <code class="cblock"><div><span class="cl">> git push origin --tags</span><br></div></code>
+        </section>
+        <section>
+          <h2>Exporting modules</h2>
+          <p>Your project repository acts as a package. You declare the modules to be exported in the same <code>package.json</code> file you use to declare the imported packages. Each transpiler language (template script, typed javascript, and glsl) gets a different section:</p>
+          <code class="cblock"><div><span class="cl">{</span><br><span class="cl"><span class="indent"></span>"dependencies": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>"std": ...</span><br><span class="cl"><span class="indent"></span>},</span><br><span class="cl"><span class="indent"></span>"templateModules": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>"mymodule": "./templates/index.wtt"</span><br><span class="cl"><span class="indent"></span>},</span><br><span class="cl"><span class="indent"></span>"scriptModules": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>"mymodule": "./scripts/index.wts"</span><br><span class="cl"><span class="indent"></span>}</span><br><span class="cl"><span class="indent"></span>"shaderModules": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>"mymodule": "./shaders/index.glsl"</span><br><span class="cl"><span class="indent"></span>},</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>If for example your package is hosted via <code>github.com/awesomehacker/awesomepkg</code>, then the <code>package.json</code> of someone wanting to import the latest version of your package will look like:</p>
+          <code class="cblock"><div><span class="cl">{</span><br><span class="cl"><span class="indent"></span>"dependencies": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span>"awesomepkg": {</span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="indent"></span>"url": "github.com/awesomehacker/awesomepkg"</span><br><span class="cl"><span class="indent"></span>},</span><br><span class="cl">}</span><br></div></code>
+          <br>
+          <p>And that person can use the imported modules as follows:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">import</span> * <span class="ck">as</span> module <span class="ck">from</span> <span class="cv">"awesomepkg/mymodule"</span></span><br></div></code>
+          <br>
+          <p>Remember to <a href="#tagging-in-git">tag the commits</a> of the versions of your package that you want to be available for others.</p>
+        </section>
+        <section>
+          <h2 id="wt-pkg-sync">wt-pkg-sync</h2>
+          <p>The <em>wt-pkg-sync</em> command downloads any dependencies (and dependencies of dependencies etc.), and checks if the <a href="https://semver.org">semver</a> constraints are met. It can be used without arguments:</p>
+          <code class="cblock"><div><span class="cl">> wt-pkg-sync</span><br></div></code>
+          <br>
+          <p>When invoking <em>wt-pkg-sync</em>, <code>package.json</code> must exist in the <em>pwd</em>, or a parent directory of the <em>pwd</em>.</p>
+          <br>
+          <p><em>wt-pkg-sync</em> also updates any imported packages with more recent versions, as allowed by the version constraints.</p>
+          <h3>Install location</h3>
+          <p>The imported packages are installed in <code>~/.local/share/wtsuite/</code> by default. Alternative install directories can be set via the <code>WTPATH</code> environment variable.</p>
+          <h3>Forced sync</h3>
+          <p>If an installed version of an imported package becomes corrupted, you can force reinstallation:</p>
+          <code class="cblock"><div><span class="cl">> wt-pkg-sync -f</span><br></div></code>
+          <h3>Testing the latest</h3>
+          <p>If you want to test the latest version of an imported package you can pass the <code>-l</code> option to <em>wt-pkg-sync</em>:</p>
+          <code class="cblock"><div><span class="cl">> wt-pkg-sync -l</span><br></div></code>
+          <br>
+          <p>This effectively ignores the <code>maxVersion</code> entries in <code>package.json</code>. To subsequently test a build of your project, using the latest versions of the imported packages, pass the <code>-l</code> option to any of the relevant <em>wtsuite</em> commands.</p>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="g0.html">Overview of tools</a></p>
+        <p class="next">Next&nbsp <a href="g2.html">Client-side search</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

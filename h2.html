@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+Variables | wtsuite
+    </title>
+    <meta name="description" content="wtsuite, all your html5 needs in one place. wtsuite is collection of transpilers for css, html, svg, math, js and glsl. Free and open source.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+        <div class="logo-wrapper">
+          <a href="index.html" id="nav-logo"><span class="logo-left">{wt</span><span class="logo-right">suite}</span></a>
+        </div>
+        <ul id="nav-links">
+          <li>
+            <a href="doc.html">Documentation</a>
+          </li>
+          <li>
+            <a href="pack.html">Packages</a>
+          </li>
+          <li>
+            <a href="download.html">Download</a>
+          </li>
+        </ul>
+        <button id="hamburger-menu-button">
+          <script>
+{let c=document.getElementById('nav-links');let b=document.getElementById('hamburger-menu-button');b.addEventListener('click', ()=>{if(b.getAttribute('selected')===null){c.setAttribute('show','');b.setAttribute('selected','')}else{c.removeAttribute('show');b.removeAttribute('selected')}})}
+          </script>
+
+        </button>
+      </nav>
+    </div>
+    <main>
+      <header>
+        <div id="prev-next-top" class="prev-next">
+          <p class="prev">Prev&nbsp <a href="h1.html">Tags</a></p>
+          <p class="next">Next&nbsp <a href="h3.html">Operators</a></p>
+        </div>
+        <div class="subtitle">
+          <p>HTML documentation</p>
+          <div id="jump-to-article">
+            <a href="h0.html">1. Getting started</a>
+            <a href="h1.html">2. Tags</a>
+            <a href="h2.html" class="local">3. Variables</a>
+            <a href="h3.html">4. Operators</a>
+            <a href="h4.html">5. Functions</a>
+            <a href="h5.html">6. Templates</a>
+            <a href="h6.html">7. Looping and branching</a>
+          </div>
+          <script>
+;b=document.querySelector("div.subtitle");
+                c=document.getElementById("jump-to-article");
+                b.addEventListener("click",(e)=>{if(b.getAttribute("show-jump")==null){b.setAttribute("show-jump","");e.stopPropagation()}});
+                window.addEventListener("click",(e)=>{if(e.target!=c){b.removeAttribute("show-jump")}});
+                
+          </script>
+
+        </div>
+        <h1>Variables</h1>
+      </header>
+      <article>
+        <section id="introduction">
+          <p>Variables in <em>wtsuite</em>'s template script are immutable, and can be of primitive type, or (nested) lists or dicts of primitive types.</p>
+        </section>
+        <section>
+          <h2>Defining and referencing variables</h2>
+          <p>Variables can be defined in any scope using the <code>var</code> keyword:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> title = <span class="cv">'Hello world'</span></span><br></div></code>
+          <br>
+          <p>Variables are immutable.</p>
+          <br>
+          <p>The <code>$</code> sign references the variable:</p>
+          <code class="cblock"><div><span class="cl"><span class="cs">html</span></span><br><span class="cl"><span class="indent"></span><span class="cs">head</span></span><br><span class="cl"><span class="indent"></span><span class="indent"></span><span class="cs">title <span class="cm">$title</span></span></span><br><span class="cl"><span class="indent"></span><span class="cs">body</span></span><br></div></code>
+        </section>
+        <section>
+          <h2>Primitives</h2>
+          <p><em>wtsuite</em> supports many integer, float, string, color and bool primitives types:</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> boolean = <span class="cv">true</span></span><br><span class="cl"><span class="ck">var</span> unitlessNumber = <span class="cv">100</span></span><br><span class="cl"><span class="ck">var</span> numberWithUnit = <span class="cv">100px</span><span class="cc">// most css units are supported</span></span><br><span class="cl"><span class="ck">var</span> string = <span class="cv">"web transpiler suite"</span></span><br><span class="cl"><span class="ck">var</span> altString = webTranspilerSuite</span><br><span class="cl"><span class="ck">var</span> rgbColor = <span class="cv">#b18800</span></span><br><span class="cl"><span class="ck">var</span> rgbaColor = <span class="cv">#b18800aa</span></span><br><span class="cl"><span class="ck">var</span> altRGBColor = <span class="cv">#b80</span></span><br><span class="cl"><span class="ck">var</span> altRGBAColor = <span class="cv">#b80a</span></span><br></div></code>
+          <br>
+          <p>Literal strings don't require quotes if they consist of only letters, numbers, hyphens, underscores and don't start with a number. To be able to use a hyphen as a minus sign, it must be surrounded by spaces.</p>
+          <br>
+        </section>
+        <section>
+          <h2>Lists and dicts</h2>
+          <p>The template script has both list and dict containers, which can contain primitives or other lists and dicts.</p>
+          <code class="cblock"><div><span class="cl"><span class="ck">var</span> array = [<span class="cm">$string</span>, <span class="cm">$color</span>] </span><br><span class="cl"><span class="ck">var</span> dict = {<span class="cv">"display"</span>: <span class="cv">"none"</span>}</span><br><span class="cl"><span class="ck">var</span> sameDict = {display: none}</span><br></div></code>
+          <h3>Indexing</h3>
+          <p>When indexing the content of lists or dicts, invalid indices throw a compiler error. For example, a negative index into a list throws an error:</p>
+          <code class="cblock"><div><span class="cl">a := [<span class="cv">0</span>, <span class="cv">1</span>, <span class="cv">2</span>, <span class="cv">3</span>];</span><br><span class="cl">b := a[<span class="cv">-1</span>]; <span class="cc">// Error: index out of range</span></span><br></div></code>
+          <br>
+          <p>Similarly, indexing into a dict, using a non-existent key throw an error:</p>
+          <code class="cblock"><div><span class="cl">a := {a: <span class="cv">0</span>, b: <span class="cv">1</span>, c: <span class="cv">2</span>, d: <span class="cv">3</span>};</span><br><span class="cl">b := a[e]; <span class="cc">// Error: key not found in dict</span></span><br></div></code>
+          <br>
+          <p>There are situations however where we need to know if a value exists, before using it. In order to avoid having to write checks using ifelse functions (there are no ifelse statements), we can tell the compiler to return the <code>null</code> value if an invalid index was used (see <a href="#permissive-mode">permissive mode</a>).</p>
+          <h3>Splicing</h3>
+          <p>Lists can be spliced by calling the splice function explicitly, or by combined a colon with zero, one or two integers (which is syntactic sugar for the explicit splice function).</p>
+          <br>
+          <p>Dicts can't be spliced.</p>
+        </section>
+        <section>
+          <h2>Null</h2>
+          <p>Like javascript, the template script allows using the <code>null</code> value. <code>null</code> signifies the absense of a value.</p>
+          <br>
+          <p>For example, when a tag attribute has a <code>null</code> value, then that attribute is not included in the final html file.</p>
+          <h3 id="nullish-coalescing">Nullish coalescing operator</h3>
+          <p>Like javascript, a nullish coalescing operator <code>??</code> is available, so fallbacks for <code>null</code> can be defined concisely. The right-hand-side of <code>??</code> is evaluated and returned if the left-hand-side is <code>null</code>.</p>
+          <br>
+          <p>It is used as follows:</p>
+          <code class="cblock"><div><span class="cl">isNull := <span class="cv">null</span>;</span><br><span class="cl">notNull := <span class="cv">'not null'</span>;</span><br><span class="cl">b := isNull ?? notNull; <span class="cc">// b == 'not null'</span></span><br><span class="cl">c := notNull ?? isNull; <span class="cc">// c == 'not null'</span></span><br></div></code>
+          <br>
+          <p>Note that <code>a??b</code> is equivalent to:</p>
+          <code class="cblock"><div><span class="cl">(a==<span class="cv">null</span>)?b:a</span><br></div></code>
+          <h3 id="if-not-null-then">If-not-null-then operator</h3>
+          <p>The if-not-null-then operator <code>!!</code> is the dual of <code>??</code>. The right-hand-side of <code>!!</code> is evaluated and returned if the left-hand-side is not <code>null</code>.</p>
+          <br>
+          <p>It is used as follows:</p>
+          <code class="cblock"><div><span class="cl">isNull := <span class="cv">null</span>;</span><br><span class="cl">notNull := <span class="cv">'not null'</span>;</span><br><span class="cl">b := isNull !! notNull; <span class="cc">// b == null</span></span><br><span class="cl">c := notNull ?? isNull; <span class="cc">// c == null</span></span><br></div></code>
+          <br>
+          <p>Note that <code>a!!b</code> is equivalent to:</p>
+          <code class="cblock"><div><span class="cl">(a!=null)?b:a</span><br></div></code>
+          <br>
+          <p>The <code>!!</code> operator has much higher precedence than the <code>??</code> operator.</p>
+          <h3 id="permissive-mode">Permissive mode</h3>
+          <p>Evaluations in a file scope are set to <em>permissive</em> mode by including the <code>permissive</code> keyword at the top of the file.</p>
+          <br>
+          <p>Permissive mode has a cascade of consequences:</p>
+          <ul>
+            <li>
+Indexing using invalid keys/indices, returns 
+              <code>null</code>
+ (the types of the keys/indices still need to be string/int though)
+            </li>
+            <li>
+Indexing using 
+              <code>null</code>
+, returns 
+              <code>null</code>
+            </li>
+            <li>
+Indexing into 
+              <code>null</code>
+, using a string, an int, or another 
+              <code>null</code>
+, returns 
+              <code>null</code>
+            </li>
+            <li>
+Adding 
+              <code>null</code>
+ to an int, returns that int (null acts as 0, other math operations throw an error though)
+            </li>
+            <li>
+Adding 
+              <code>null</code>
+ to a string, returns that string (null acts as empty string)
+            </li>
+            <li>
+Adding 
+              <code>null</code>
+ to a dict, returns that dict (null acts as empty dict)
+            </li>
+            <li>
+Adding 
+              <code>null</code>
+ to a list, returns that list (null acts as empty list)
+            </li>
+            <li>
+Adding 
+              <code>null</code>
+ to another 
+              <code>null</code>
+, returns 
+              <code>null</code>
+            </li>
+          </ul>
+        </section>
+      </article>
+      <div id="prev-next-bottom" class="prev-next">
+        <p class="prev">Prev&nbsp <a href="h1.html">Tags</a></p>
+        <p class="next">Next&nbsp <a href="h3.html">Operators</a></p>
+      </div>
+    </main>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <p>2021</p>
+        </div>
+        <div>
+          <p>by <a href="https://computeportal.com">Compute Portal</a></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
