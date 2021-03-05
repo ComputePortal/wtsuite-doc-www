@@ -21,11 +21,17 @@ Web transpiler as a Service | wtsuite
 #app[show]{
   display:block;
 }
-#libs-container p.url{
+#all-libraries p.url{
   color:black;
 }
 p.webhook{
   color:red;
+}
+#ssh-key{
+  color:blue;
+}
+#all-pipelines p[invalid]{
+  border:1px solid red;
 }
     </style>
     <script type="text/javascript" src="bundle.js"></script>
@@ -67,25 +73,80 @@ p.webhook{
 Use wtsuite in the cloud to build static websites as part of your CD flow. Rebuilds are triggered by webhooks from your own repositories, as well as webhooks from upstream dependencies.
         </section>
         <section>
-          <form id="login">
+          <form action="javascript:void(0);" id="login">
             <a id="github-login">Log in with Github</a>
           </form>
           <div id="app">
-            <div id="info">
+            <div id="user">
               <p id="host-info"></p>
               <p id="name-info"></p>
               <p id="last-build-info"></p>
-              <p id="ssh-key"></p>
-              <input id="test-webhook-input">
-              <button id="test-webhook-button">
-              </button>
+              <p>Add the following ssh key to your private repositories:<span id="ssh-key"></span></p>
+            </div>
+            <div id="pipelines">
+              <h2>Add a new pipeline</h2>
+              <p>A pipeline transpiles the upstream repository (wtsuite input files) into the downstream repository (static web assets)</p>
+              <form action="javascript:void(0);" id="add-pipeline">
+                <label for="add-pipeline-upstream-name">
+Upstream repo name
+                </label>
+                <input id="add-pipeline-upstream-name">
+                <br>
+                <label for="add-pipeline-upstream-branch">
+Upstream branch
+                </label>
+                <input id="add-pipeline-upstream-branch">
+                <br>
+                <label for="add-pipeline-upstream-dir">
+Directory in upstream repo (can be empty)
+                </label>
+                <input id="add-pipeline-upstream-dir">
+                <br>
+                <label for="add-pipeline-downstream-name">
+Downstream repo name
+                </label>
+                <input id="add-pipeline-downstream-name">
+                <br>
+                <label for="add-pipeline-downstream-branch">
+Dowtream branch
+                </label>
+                <input id="add-pipeline-downstream-branch">
+                <br>
+                <button id="add-pipeline-button">
+Add pipeline
+                </button>
+                <span id="add-pipeline-message"></span>
+              </form>
+              <h3>List of all pipelines</h3>
+              <div id="all-pipelines">
+              </div>
             </div>
             <div id="libraries">
-              <input id="library-url">
-              <button id="add-library">
-Add library
+              <h2>Register a library</h2>
+              <p>Register a library so that builds can be triggered of all dependent repositories</p>
+              <form action="javascript:void(0);" id="register-library">
+                <label for="register-library-name">
+Repo name
+                </label>
+                <input id="register-library-name">
+                <button id="register-library-button">
+Register library
+                </button>
+                <span id="register-library-message"></span>
+              </form>
+              <h3>List of all libraries</h3>
+              <div id="all-libraries">
+              </div>
+            </div>
+            <div id="messages">
+              <h2>Messages</h2>
+              <button id="refresh-messages">
+Refresh
               </button>
-              <div id="libs-container">
+              <button id="clear-messages">
+Clear
+              </button>
+              <div id="all-messages">
               </div>
             </div>
           </div>
@@ -104,7 +165,7 @@ Add library
     </div>
     <script>
 function onload(){
-cFNzSU();}
+OMXuIS();}
 window.addEventListener("load",onload,false);
     </script>
   </body>

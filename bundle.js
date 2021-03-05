@@ -22,30 +22,6 @@ function __newWebGLProgram__(gl,v,f){
   gl.linkProgram(p);
   return p;
 }
-var baseURL="https://developer.mozilla.org/en-US/docs/Web/JavaScript";
-class APIMessage{
-  constructor(){}
-};
-class LoginRequest extends APIMessage{  static __propertyTypes__={
-  host:String,
-  code:String,
-  };
-
-  constructor(host,code){
-    super();
-    this.host=host;
-    this.code=code
-  }
-};
-class LoginResponse extends APIMessage{  static __propertyTypes__={
-  token:String,
-  };
-
-  constructor(token){
-    super();
-    this.token=token
-  }
-};
 const IN=0;
 const OUT=1;
 const IN_OUT=2;
@@ -571,8 +547,32 @@ function searchPages(si,keys,lastPrefix=false){
   let nKeys=keys.length;
   return new Promise(function(resolve,reject){si.onready=function(){let ranking=new Map();for(let i=0;i<nKeys;i++){let key=keys[i].toLowerCase();let fuzzyness=determineFuzzyness(key);if(!si.ignore(key)){let groups;if(i===nKeys-1&&lastPrefix){groups=si.fuzzyPrefix(key,fuzzyness)}else{groups=si.fuzzy(key,fuzzyness);let n=0;groups.forEach(function(g){n+=g.size});if(n<5){groups=si.fuzzySubstring(key,fuzzyness)}};for(let d=0;d<groups.length;d++){let pages=Array.from(groups[d]);for(let pageID_ of pages){let pageID=pageID_;let pageScore=null;if(!ranking.has(pageID)){pageScore=new PageScore(keys,si.page(pageID));ranking.set(pageID,pageScore)}else{pageScore=ranking.get(pageID)};pageScore.matchKey(i,d)}}}};let sorted=sortPages(ranking,true);resolve(sorted)}})
 };
+var baseURL="https://developer.mozilla.org/en-US/docs/Web/JavaScript";
+class APIMessage{
+  constructor(){}
+};
+class LoginRequest extends APIMessage{  static __propertyTypes__={
+  host:String,
+  code:String,
+  };
 
-function yRiGBS(){
+  constructor(host,code){
+    super();
+    this.host=host;
+    this.code=code
+  }
+};
+class LoginResponse extends APIMessage{  static __propertyTypes__={
+  token:String,
+  };
+
+  constructor(token){
+    super();
+    this.token=token
+  }
+};
+
+function JNxIAs(){
 const N=10;
 const M=10;
 const DURATION=60000;
@@ -842,7 +842,7 @@ class MandelbrotPage{
 };
 new MandelbrotPage();
 }
-function dPzGVv(){
+function gIMdzq(){
 class Page{
   constructor(){
     this._searchIndex=new SearchIndex('search-index-mdn-javascript.json');
@@ -897,10 +897,20 @@ class Page{
 };
 new Page();
 }
-function cFNzSU(){
-const CLIENT_ID='f0b32b533ad2d66d5e64';
+function OMXuIS(){
+function isLocalhost(){
+  return window.location.href.startsWith('http://localhost')
+};
+function CLIENT_ID(){
+  return isLocalhost()?'a056f6d90d816da9d53b':'f0b32b533ad2d66d5e64'
+};
+function THIS_URL(){
+  return isLocalhost()?'http://localhost:8080/wtaas.html':'https://www.wtsuite.com/wtaas.html'
+};
+function API_URL(){
+  return isLocalhost()?'http://localhost:7000':'https://api.wtsuite.com/ssg'
+};
 const WTAAS_TOKEN='wtaas-token';
-const THIS_URL='https://computeportal.github.io/wtsuite-doc/wtaas.html';
 function setToken(token){
   window.localStorage.setItem(WTAAS_TOKEN,token)
 };
@@ -913,8 +923,17 @@ function hasToken(){
 function clearToken(){
   window.localStorage.removeItem(WTAAS_TOKEN)
 };
+class TopicError extends Error{
+  constructor(msg,topic=''){
+    super(msg);
+    this._topic=topic===null?'':topic
+  }
+  get topic(){
+    return this._topic
+  }
+};
 function apiRequest(relURL,method,payload=''){
-  return new Promise(function(resolve,reject){let req=new XMLHttpRequest();req.open(method,'http://localhost:7000'+relURL);req.setRequestHeader('Content-Type','application/json');let token=getToken();if(token!==null){req.setRequestHeader('Auth-Token',token)};req.onerror=function(){reject(new Error(method+' to '+relURL+' failed'))};req.onload=function(){if(req.status===200){resolve(req.responseText)}else if(req.status===403){clearToken();window.location.href=THIS_URL;reject(new Error('forbidden'))}else{let msg=method+' to '+relURL+' failed ('+req.responseText+')';reject(new Error(msg))}};req.send(payload)})
+  return new Promise(function(resolve,reject){let req=new XMLHttpRequest();req.open(method,API_URL()+relURL);req.setRequestHeader('Content-Type','application/json');let token=getToken();if(token!==null){req.setRequestHeader('Auth-Token',token)};req.onerror=function(){reject(new Error(method+' to '+relURL+' failed'))};req.onload=function(){if(req.status===200){resolve(req.responseText)}else if(req.status===403){clearToken();window.location.href=THIS_URL();reject(new Error('forbidden'))}else{try{let obj=JSON.parse(req.responseText);if(((obj['error']) === undefined)){throw new Error()};let topic='';if(!((obj['topic']) === undefined)){topic=obj['topic']};let err=new TopicError(obj['error'],topic);reject(err)}catch(_){let msg=method+' to '+relURL+' failed ('+req.responseText+')';reject(new Error(msg))}}};req.send(payload)})
 };
 async function apiPost(relURL,obj){
   let payload=JSON.stringify(obj);
@@ -925,6 +944,14 @@ async function apiGet(relURL){
   let resp=await apiRequest(relURL,'GET','');
   return JSON.parse(resp)
 };
+function stripHostAndOwner(repoURL){
+  let parts=repoURL.split('/');
+  return parts.slice(2).join('/')
+};
+function cleanEditableValue(el){
+  let ih=el.innerHTML;
+  return ih.replace(new RegExp('<.*?>','g'),'')
+};
 class Page_{
   constructor(){
     this._appContainer=document.getElementById('app');
@@ -934,19 +961,30 @@ class Page_{
     this._nameInfo=document.getElementById('name-info');
     this._lastBuildInfo=document.getElementById('last-build-info');
     this._sshKey=document.getElementById('ssh-key');
-    this._libraryInput=document.getElementById('library-url');
-    this._addLibraryButton=document.getElementById('add-library');
-    this._libsContainer=document.getElementById('libs-container');
-    this._testWebhookInput=document.getElementById('test-webhook-input');
-    this._testWebhookButton=document.getElementById('test-webhook-button');
+    this._addPipelineUpstreamName=document.getElementById('add-pipeline-upstream-name');
+    this._addPipelineUpstreamBranch=document.getElementById('add-pipeline-upstream-branch');
+    this._addPipelineUpstreamDir=document.getElementById('add-pipeline-upstream-dir');
+    this._addPipelineDownstreamName=document.getElementById('add-pipeline-downstream-name');
+    this._addPipelineDownstreamBranch=document.getElementById('add-pipeline-downstream-branch');
+    this._addPipelineButton=document.getElementById('add-pipeline-button');
+    this._addPipelineMessage=document.getElementById('add-pipeline-message');
+    this._allPipelines=document.getElementById('all-pipelines');
+    this._registerLibraryName=document.getElementById('register-library-name');
+    this._registerLibraryButton=document.getElementById('register-library-button');
+    this._allLibraries=document.getElementById('all-libraries');
+    this._refreshMessagesButton=document.getElementById('refresh-messages');
+    this._clearMessagesButton=document.getElementById('clear-messages');
+    this._allMessages=document.getElementById('all-messages');
     if(!hasToken()){
       this.attemptAuth()
     }
     else{
       this.loadUserData()
     };
-    this._addLibraryButton.addEventListener('click',(_)=>{this.addLibrary()});
-    this._testWebhookButton.addEventListener('click',(_)=>{this.testWebhook()})
+    this._addPipelineButton.addEventListener('click',(_)=>{this.addPipeline()});
+    this._registerLibraryButton.addEventListener('click',(_)=>{this.registerLibrary()});
+    this._refreshMessagesButton.addEventListener('click',(_)=>{this.loadMessages()});
+    this._clearMessagesButton.addEventListener('click',(_)=>{this.clearMessages()})
   }
   async attemptAuth(){
     if((await this.attemptGithubAuth())){
@@ -991,8 +1029,8 @@ class Page_{
   showLoginForm(){
     this._loginForm.setAttribute('show','');
     let state=this.randomState();
-    let redirect_uri=THIS_URL;
-    let url=(['https://github.com/login/oauth/authorize?','client_id=',CLIENT_ID,'&redirect_uri=',encodeURIComponent(redirect_uri),'&state=',state]).join('');
+    let redirect_uri=THIS_URL();
+    let url=(['https://github.com/login/oauth/authorize?','client_id=',CLIENT_ID(),'&redirect_uri=',encodeURIComponent(redirect_uri),'&state=',state]).join('');
     window.sessionStorage.setItem('github-state',state);
     this._githubLogin.href=url
   }
@@ -1002,9 +1040,11 @@ class Page_{
       let details=await apiGet('/user');
       this._hostInfo.innerHTML=details['host'];
       this._nameInfo.innerHTML=details['name'];
-      this._lastBuildInfo.innerHTML=details['lastBuild'];
+      this._lastBuildInfo.innerHTML=(new Date((new Int(details['lastBuild']))*1000)).toLocaleString('sv');
       this._sshKey.innerHTML=details['sshKey'];
-      this.loadLibraries()
+      this.loadLibraries();
+      this.loadPipelines();
+      this.loadMessages()
     }catch(e){
       console.log(e.message)
     }
@@ -1012,8 +1052,8 @@ class Page_{
   async loadLibraries(){
     let resp=await apiGet('/libraries');
     let libs=resp['libraries'];
-    while(this._libsContainer.firstChild!==null){
-      this._libsContainer.removeChild(this._libsContainer.firstChild)
+    while(this._allLibraries.firstChild!==null){
+      this._allLibraries.removeChild(this._allLibraries.firstChild)
     };
     for(let lib of libs){
       let div=document.createElement('div');
@@ -1021,23 +1061,209 @@ class Page_{
       p1.setAttribute('class','url');
       p1.innerHTML=lib.url;
       let p2=document.createElement('p');
-      p2.setAttribute('class','webhook');
-      p2.innerHTML=lib.webhook;
+      p2.setAttribute('class','state');
+      p2.innerHTML=lib.state;
+      let p3=document.createElement('p');
+      p3.setAttribute('class','webhook');
+      p3.innerHTML=lib.webhook;
       let b1=document.createElement('button');
       b1.innerHTML='new webhook';
-      b1.addEventListener('click',(_)=>{this.updateWebhook(lib.url)});
+      b1.addEventListener('click',(_)=>{this.updateLibraryWebhook(lib.url)});
       let b2=document.createElement('button');
-      b2.innerHTML='delete';
-      b2.addEventListener('click',(_)=>{this.removeLibrary(lib.url)});
+      b2.innerHTML='trigger';
+      b2.addEventListener('click',(_)=>{this.triggerWebhook(lib.webhook)});
+      let b3=document.createElement('button');
+      b3.innerHTML='delete';
+      b3.addEventListener('click',(_)=>{this.removeLibrary(lib.url)});
       div.appendChild(p1);
       div.appendChild(p2);
+      div.appendChild(p3);
       div.appendChild(b1);
       div.appendChild(b2);
-      this._libsContainer.appendChild(div)
+      div.appendChild(b3);
+      this._allLibraries.appendChild(div)
     }
   }
-  async addLibrary(){
-    let name=this._libraryInput.value;
+  async loadPipelines(){
+    let resp=await apiGet('/pipelines');
+    let pipelines=resp['pipelines'];
+    while(this._allPipelines.firstChild!==null){
+      this._allPipelines.removeChild(this._allPipelines.firstChild)
+    };
+    for(let pl of pipelines){
+      let div=document.createElement('div');
+      let p1=document.createElement('p');
+      p1.setAttribute('class','upstream-url');
+      p1.setAttribute('contenteditable','true');
+      p1.innerHTML=stripHostAndOwner(pl.upstreamURL);
+      let p2=document.createElement('p');
+      p2.setAttribute('class','upstream-branch');
+      p2.setAttribute('contenteditable','true');
+      p2.innerHTML=pl.upstreamBranch;
+      let p3=document.createElement('p');
+      p3.setAttribute('class','upstream-dir');
+      p3.setAttribute('contenteditable','true');
+      p3.innerHTML=pl.upstreamDir;
+      let p4=document.createElement('p');
+      p4.setAttribute('class','downstream-url');
+      p4.setAttribute('contenteditable','true');
+      p4.innerHTML=stripHostAndOwner(pl.downstreamURL);
+      let p5=document.createElement('p');
+      p5.setAttribute('class','downstream-branch');
+      p5.setAttribute('contenteditable','true');
+      p5.innerHTML=pl.downstreamBranch;
+      let p6=document.createElement('p');
+      p6.setAttribute('class','state');
+      p6.innerHTML=pl.state;
+      let p7=document.createElement('p');
+      p7.setAttribute('class','webhook');
+      p7.innerHTML=pl.webhook;
+      let b1=document.createElement('button');
+      b1.innerHTML='new webhook';
+      b1.addEventListener('click',(_)=>{this.updatePipelineWebhook(pl.upstreamURL)});
+      let b2msg=document.createElement('span');
+      let b2=document.createElement('button');
+      b2.innerHTML='update';
+      b2.addEventListener('click',(_)=>{this.updatePipeline(pl.upstreamURL,p1,p2,p3,p4,p5,b2msg)});
+      let b3=document.createElement('button');
+      b3.innerHTML='trigger';
+      b3.addEventListener('click',(_)=>{this.triggerWebhook(pl.webhook)});
+      let b4=document.createElement('button');
+      b4.innerHTML='delete';
+      b4.addEventListener('click',(_)=>{this.removePipeline(pl.upstreamURL)});
+      div.appendChild(p1);
+      div.appendChild(p2);
+      div.appendChild(p3);
+      div.appendChild(p4);
+      div.appendChild(p5);
+      div.appendChild(p6);
+      div.appendChild(p7);
+      div.appendChild(b1);
+      div.appendChild(b2);
+      div.appendChild(b2msg);
+      div.appendChild(b3);
+      div.appendChild(b4);
+      this._allPipelines.appendChild(div)
+    }
+  }
+  async addPipeline(){
+    this._addPipelineMessage.innerHTML='';
+    this._addPipelineUpstreamName.setCustomValidity('');
+    this._addPipelineUpstreamBranch.setCustomValidity('');
+    this._addPipelineUpstreamDir.setCustomValidity('');
+    this._addPipelineDownstreamName.setCustomValidity('');
+    this._addPipelineDownstreamBranch.setCustomValidity('');
+    let upstreamName=this._addPipelineUpstreamName.value;
+    let upstreamBranch=this._addPipelineUpstreamBranch.value;
+    let upstreamDir=this._addPipelineUpstreamDir.value;
+    let downstreamName=this._addPipelineDownstreamName.value;
+    let downstreamBranch=this._addPipelineDownstreamBranch.value;
+    if(upstreamName===''||upstreamBranch===''||downstreamName===''||downstreamBranch===''){
+      return
+    };
+    try{
+      await apiPost('/pipeline/add',{'upstreamName':upstreamName,'upstreamBranch':upstreamBranch,'upstreamDir':upstreamDir,'downstreamName':downstreamName,'downstreamBranch':downstreamBranch});
+      this.loadPipelines()
+    }catch(e){
+      this._addPipelineMessage.innerHTML=e.message;
+      if((e instanceof TopicError)){
+        switch(e.topic){
+          case 'upstreamName':{
+            this._addPipelineUpstreamName.setCustomValidity(e.message);
+            break;
+          }
+          case 'downstreamName':{
+            this._addPipelineDownstreamName.setCustomValidity(e.message);
+            break;
+          }
+          case 'upstreamBranch':{
+            this._addPipelineUpstreamBranch.setCustomValidity(e.message);
+            break;
+          }
+          case 'upstreamDir':{
+            this._addPipelineUpstreamBranch.setCustomValidity(e.message);
+            break;
+          }
+          case 'downstreamBranch':{
+            this._addPipelineDownstreamBranch.setCustomValidity(e.message);
+            break;
+          }
+        }
+      }
+    }
+  }
+  async removePipeline(url){
+    try{
+      await apiPost('/pipeline/remove',{'url':url});
+      this.loadPipelines()
+    }catch(e){
+      console.log(e.message)
+    }
+  }
+  async updatePipeline(url,upstreamNameElement,upstreamBranchElement,upstreamDirElement,downstreamNameElement,downstreamBranchElement,updateMessage){
+    upstreamNameElement.removeAttribute('invalid');
+    upstreamBranchElement.removeAttribute('invalid');
+    upstreamDirElement.removeAttribute('invalid');
+    downstreamNameElement.removeAttribute('invalid');
+    downstreamBranchElement.removeAttribute('invalid');
+    updateMessage.innerHTML='';
+    let upstreamName=cleanEditableValue(upstreamNameElement);
+    let invalidMsgParts=[];
+    if(upstreamName===''){
+      upstreamNameElement.setAttribute('invalid','');
+      invalidMsgParts.push('upstream name empty')
+    };
+    let upstreamBranch=cleanEditableValue(upstreamBranchElement);
+    if(upstreamBranch===''){
+      upstreamBranchElement.setAttribute('invalid','');
+      invalidMsgParts.push('upstream branch empty')
+    };
+    let upstreamDir=cleanEditableValue(upstreamDirElement);
+    let downstreamName=cleanEditableValue(downstreamNameElement);
+    if(downstreamName===''){
+      invalidMsgParts.push('downstream name empty')
+    };
+    let downstreamBranch=cleanEditableValue(downstreamBranchElement);
+    if(downstreamBranch===''){
+      invalidMsgParts.push('downstream branch empty')
+    };
+    if(invalidMsgParts.length>0){
+      updateMessage.innerHTML=invalidMsgParts.join(', ');
+      return
+    };
+    let obj={'url':url,'upstreamName':upstreamName,'upstreamBranch':upstreamBranch,'upstreamDir':upstreamDir,'downstreamName':downstreamName,'downstreamBranch':downstreamBranch};
+    try{
+      await apiPost('/pipeline/update',obj)
+    }catch(e){
+      if((e instanceof TopicError)){
+        switch(e.topic){
+          case 'upstreamName':{
+            upstreamNameElement.setAttribute('invalid','');
+            break;
+          }
+          case 'upstreamBranch':{
+            upstreamBranchElement.setAttribute('invalid','');
+            break;
+          }
+          case 'upstreamDir':{
+            upstreamDirElement.setAttribute('invalid','');
+            break;
+          }
+          case 'downstreamName':{
+            downstreamNameElement.setAttribute('invalid','');
+            break;
+          }
+          case 'downstreamBranch':{
+            downstreamBranchElement.setAttribute('invalid','');
+            break;
+          }
+        }
+      };
+      updateMessage.innerHTML=e.message
+    }
+  }
+  async registerLibrary(){
+    let name=this._registerLibraryName.value;
     if(name===''){
       return
     };
@@ -1056,7 +1282,15 @@ class Page_{
       console.log(e.message)
     }
   }
-  async updateWebhook(url){
+  async updatePipelineWebhook(url){
+    try{
+      await apiPost('/webhook/update',{'url':url});
+      this.loadPipelines()
+    }catch(e){
+      console.log(e.message)
+    }
+  }
+  async updateLibraryWebhook(url){
     try{
       await apiPost('/webhook/update',{'url':url});
       this.loadLibraries()
@@ -1064,16 +1298,43 @@ class Page_{
       console.log(e.message)
     }
   }
-  async testWebhook(){
-    let webhook=this._testWebhookInput.value;
-    if(webhook===''){
-      return
-    };
+  async triggerWebhook(wh){
     try{
-      await apiPost('?webhook='+encodeURIComponent(webhook),{});
+      await apiPost('?webhook='+encodeURIComponent(wh),{});
       this.loadLibraries()
     }catch(e){
       console.log(e.message)
+    }
+  }
+  async clearMessages(){
+    try{
+      await apiGet('/messages/clear');
+      this.loadMessages()
+    }catch(e){
+      console.log(e.message)
+    }
+  }
+  async loadMessages(){
+    let resp=await apiGet('/messages');
+    let messages=resp['messages'];
+    while(this._allMessages.firstChild!==null){
+      this._allMessages.removeChild(this._allMessages.firstChild)
+    };
+    for(let msg of messages){
+      let div=document.createElement('div');
+      let p1=document.createElement('p');
+      p1.setAttribute('class','message-pipeline');
+      p1.innerHTML=stripHostAndOwner(msg.pipeline);
+      let p2=document.createElement('p');
+      p2.setAttribute('class','message-time-stamp');
+      p2.innerHTML=(new Date(msg.timeStamp*1000)).toLocaleString('sv');
+      let p3=document.createElement('p');
+      p3.setAttribute('class','message-content');
+      p3.innerHTML=msg.message;
+      div.appendChild(p1);
+      div.appendChild(p2);
+      div.appendChild(p3);
+      this._allMessages.appendChild(div)
     }
   }
 };
